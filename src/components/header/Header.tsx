@@ -5,14 +5,18 @@ import { Colors } from "@/utils/style/colors";
 
 interface HeaderProsp {
     title?: string;
+    headerLeft?: React.ReactNode;
+    headerRight?: React.ReactNode;
 }
 
-export default function Header({ title }: HeaderProsp) {
+export default function Header({ title, headerLeft, headerRight }: HeaderProsp) {
     return (
         <>
             <HeaderContainer>
                 <HeaderInner>
+                    {headerLeft && <HeaderSide $side="left">{headerLeft}</HeaderSide>}
                     <h1>{title}</h1>
+                    {headerRight && <HeaderSide $side="right">{headerRight}</HeaderSide>}
                 </HeaderInner>
             </HeaderContainer>
             <HeaderSpace />
@@ -37,11 +41,22 @@ const HeaderInner = styled.div`
     width: 100%;
     max-width: 76.8rem;
     margin: 0 auto;
-    height: 4.8rem;
+    height: 5.6rem;
     h1 {
         font-size: 1.8rem;
+        color: #1a1a1a;
+        font-weight: 600;
     }
 `;
+const HeaderSide = styled.div<{ $side: "left" | "right" }>`
+    position: absolute;
+    ${(props) => props.$side}: 0;
+    top: 0;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    padding: 0 1.4rem;
+`;
 const HeaderSpace = styled.div`
-    padding-top: 4.8rem;
+    padding-top: 5.6rem;
 `;

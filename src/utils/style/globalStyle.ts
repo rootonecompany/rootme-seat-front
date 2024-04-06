@@ -11,7 +11,6 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         height:100%;
         font-size: 62.5%;
-        color:${Colors.systemBlack}
     }
     html, body, div, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -38,8 +37,14 @@ export const GlobalStyle = createGlobalStyle`
     body {
         width: 100%;
         height:100%;
-        line-height: 1;
+        line-height: 1.2;
         background-color: #f2f2f2;
+        font-smooth: always;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
     }
     ol, ul {
         list-style: none;

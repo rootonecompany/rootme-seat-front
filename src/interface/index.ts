@@ -3,3 +3,7 @@ export interface Modal {
     component?: () => React.ReactNode;
     close?: () => void;
 }
+
+export interface KeyValueData {
+    [key: string]: string;
+}

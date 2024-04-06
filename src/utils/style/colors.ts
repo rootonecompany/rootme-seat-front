@@ -1,4 +1,15 @@
 export const Colors = {
+    black1A1A1A: "#1A1A1A",
+    black696969: "#696969",
+    black9A9A9A: "#9A9A9A",
+    blackBBBBBB: "#BBBBBB",
+    blackCECECE: "#CECECE",
+    blackE2E2E2: "#E2E2E2",
+    blackF0F0F0: "#F0F0F0",
+    blackFAFAFA: "#FAFAFA",
+    yanoljaPrimary: "#FF1978",
+    buttonGradient: "linear-gradient(90deg, #FF596B 0%, #FF1978 100%)",
     systemWhite: "#ffffff",
-    systemBlack: "#1a1a1a",
+    systemError: "#F44453",
+    systemToast: "#474C53",
 };
