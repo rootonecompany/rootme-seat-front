@@ -1,9 +1,9 @@
 "use client";
 
 import styled from "styled-components";
-import { Colors } from "@/utils/style/colors";
-import { pretendard } from "@/utils/style/fonts";
 import useHandleInput from "@/hooks/useHandleInput";
+import { pretendard } from "@/utils/style/fonts";
+import { Colors } from "@/utils/style/colors";
 
 interface UserInputFormData {
     orderNumber: string;
@@ -11,6 +11,7 @@ interface UserInputFormData {
 
 export default function ReservationContainer() {
     const { inputValue, handleInputValue } = useHandleInput<UserInputFormData>();
+
     return (
         <ReservationBody>
             <Form>
@@ -24,7 +25,7 @@ export default function ReservationContainer() {
                         id="orderNumber"
                         name="orderNumber"
                         autoFocus
-                        value={inputValue.orderNumber}
+                        value={inputValue.orderNumber || ""}
                         onChange={(e) => handleInputValue(e)}
                         placeholder="주문번호를 입력해주세요."
                     />

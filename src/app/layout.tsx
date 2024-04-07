@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BasicLayout from "@/components/layout/BasicLayout";
-import Modal from "@/components/modal/Modal";
 import RecoilProvider from "@/utils/lib/RecoilProvider";
 import StyledComponentsRegistry from "@/utils/lib/StyledComponentsRegistry";
 import { GlobalStyle } from "@/utils/style/globalStyle";
@@ -19,13 +18,12 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <body className={pretendard.className}>
-                <RecoilProvider>
-                    <StyledComponentsRegistry>
-                        <GlobalStyle />
-                        <BasicLayout>{children}</BasicLayout>
-                        <Modal />
-                    </StyledComponentsRegistry>
-                </RecoilProvider>
+                <StyledComponentsRegistry>
+                    <GlobalStyle />
+                    <BasicLayout>{children}</BasicLayout>
+                    <div id="modal"></div>
+                    <div id="toast"></div>
+                </StyledComponentsRegistry>
             </body>
         </html>
     );
