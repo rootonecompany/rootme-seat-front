@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BasicLayout from "@/components/layout/BasicLayout";
-import RecoilProvider from "@/utils/lib/RecoilProvider";
 import StyledComponentsRegistry from "@/utils/lib/StyledComponentsRegistry";
 import { GlobalStyle } from "@/utils/style/globalStyle";
 import { pretendard } from "@/utils/style/fonts";
