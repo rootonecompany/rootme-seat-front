@@ -40,7 +40,7 @@ const ModalOverlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 100;
 `;
 const ModalContent = styled.div`
@@ -51,7 +51,7 @@ const ModalContent = styled.div`
     width: calc(100% - 4rem);
     max-width: 32rem;
     border-radius: 1.2rem;
-    padding: 2.6rem 2rem 1.8rem;
+    padding: 3.6rem 2rem 1.8rem;
     background: ${Colors.systemWhite};
     z-index: 200;
 `;

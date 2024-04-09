@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import BasicLayout from "@/components/layout/BasicLayout";
+import AppLayout from "@/components/layout/AppLayout";
 import StyledComponentsRegistry from "@/utils/lib/StyledComponentsRegistry";
 import { GlobalStyle } from "@/utils/style/globalStyle";
 import { pretendard } from "@/utils/style/fonts";
@@ -19,7 +19,7 @@ export default function RootLayout({
             <body className={pretendard.className}>
                 <StyledComponentsRegistry>
                     <GlobalStyle />
-                    <BasicLayout>{children}</BasicLayout>
+                    <AppLayout>{children}</AppLayout>
                     <div id="modal"></div>
                     <div id="toast"></div>
                 </StyledComponentsRegistry>
