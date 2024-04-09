@@ -5,12 +5,15 @@ import useModal from "@/hooks/useModal";
 import DynamicModal from "@/components/modal/DynamicModal";
 import ConfirmationModal from "@/components/modal/ConfirmationModal";
 
-interface Props {
+interface SeatReservationPanelProps {
     selectedSeats: { [key: string]: number[] };
     totalSelectedSeats: number;
 }
 
-export default function SeatReservationPanel({ selectedSeats, totalSelectedSeats }: Props) {
+export default function SeatReservationPanel({
+    selectedSeats,
+    totalSelectedSeats,
+}: SeatReservationPanelProps) {
     const { isOpen, openModal, closeModal } = useModal();
 
     return (

@@ -3,7 +3,7 @@
 import { Colors } from "@/utils/style/colors";
 import styled from "styled-components";
 
-interface Props {
+interface SeatingChartProps {
     data: {
         id: number;
         column: string;
@@ -16,7 +16,7 @@ interface Props {
     handleSelectSeat: (row: number, column: string) => void;
 }
 
-export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: Props) {
+export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: SeatingChartProps) {
     return (
         <>
             <SeatingChartContainer>
