@@ -19,4 +19,5 @@ const IconButton = styled.button`
     padding: 0;
     background: none;
     border: none;
+    cursor: pointer;
 `;

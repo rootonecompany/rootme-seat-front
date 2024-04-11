@@ -3,16 +3,19 @@ import { useState } from "react";
 export default function useSeatSelection() {
     const [selectedSeats, setSelectedSeats] = useState<{ [key: string]: number[] }>({});
 
-    const handleSelectSeat = (row: number, column: string) => {
-        setSelectedSeats((prev) => {
+    const toggleSeatSelection = (row: number, column: string) => {
+        setSelectedSeats((prevSelectedSeats) => {
             const seatKey = `${column}`;
-            const isSelected = prev[seatKey]?.includes(row);
-            const updatedSeats = {
-                ...prev,
-                [seatKey]: isSelected
-                    ? prev[seatKey].filter((seat) => seat !== row)
-                    : [...(prev[seatKey] || []), row],
-            };
+            const isSelected = prevSelectedSeats[seatKey]?.includes(row);
+            const updatedSeats = isSelected
+                ? {
+                      ...prevSelectedSeats,
+                      [seatKey]: prevSelectedSeats[seatKey].filter((seat) => seat !== row),
+                  }
+                : {
+                      ...prevSelectedSeats,
+                      [seatKey]: [...(prevSelectedSeats[seatKey] || []), row],
+                  };
 
             if (updatedSeats[seatKey]?.length === 0) {
                 delete updatedSeats[seatKey];
@@ -22,11 +25,14 @@ export default function useSeatSelection() {
         });
     };
 
-    const totalSelectedSeats = Object.values(selectedSeats).flat().length;
+    const totalSelectedSeats = Object.values(selectedSeats).reduce(
+        (total, seats) => total + seats.length,
+        0
+    );
 
     return {
         selectedSeats,
-        handleSelectSeat,
+        toggleSeatSelection,
         totalSelectedSeats,
     };
 }

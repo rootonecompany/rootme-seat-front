@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Notice from "/public/images/icons/icon_notice.svg";
 import useModal from "@/hooks/useModal";
 import DynamicModal from "@/components/modal/DynamicModal";
-import ConfirmationModal from "@/components/modal/ConfirmationModal";
+import ConfirmationModal from "@/components/modal/ui/ConfirmationModal";
 
 interface SeatReservationPanelProps {
     selectedSeats: { [key: string]: number[] };
@@ -64,7 +64,7 @@ export default function SeatReservationPanel({
             <DynamicModal open={isOpen} close={closeModal}>
                 <ConfirmationModal
                     title="좌석을 예매하시겠습니까?"
-                    message={`공연시간이 지난 후에는\n 좌석을 변경하실수 없습니다.`}
+                    message={`공연시간 10분 전에는\n 좌석을 변경하실수 없습니다.`}
                     buttonText="예매하기"
                     close={closeModal}
                 />

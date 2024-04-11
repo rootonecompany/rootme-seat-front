@@ -8,7 +8,7 @@ import useSeatSelection from "@/hooks/useSeatSelection";
 import styled from "styled-components";
 
 export default function SeatContainer() {
-    const { selectedSeats, handleSelectSeat, totalSelectedSeats } = useSeatSelection();
+    const { selectedSeats, toggleSeatSelection, totalSelectedSeats } = useSeatSelection();
 
     return (
         <SeatContainerWrapper>
@@ -16,7 +16,7 @@ export default function SeatContainer() {
             <SeatingChart
                 data={SeatData}
                 selectedSeats={selectedSeats}
-                handleSelectSeat={handleSelectSeat}
+                toggleSeatSelection={toggleSeatSelection}
             />
             <SeatReservationPanel
                 selectedSeats={selectedSeats}

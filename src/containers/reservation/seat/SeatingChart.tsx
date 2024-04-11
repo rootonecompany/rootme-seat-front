@@ -13,10 +13,14 @@ interface SeatingChartProps {
         }[];
     }[];
     selectedSeats: { [key: string]: number[] };
-    handleSelectSeat: (row: number, column: string) => void;
+    toggleSeatSelection: (row: number, column: string) => void;
 }
 
-export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: SeatingChartProps) {
+export default function SeatingChart({
+    data,
+    selectedSeats,
+    toggleSeatSelection,
+}: SeatingChartProps) {
     return (
         <>
             <SeatingChartContainer>
@@ -26,10 +30,10 @@ export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: 
                     ))}
                 </SeatColumn>
                 <div className="scroll">
-                    <SeatVerticalContainer>
+                    <SeatRowContainer>
                         {data.map((seat) => (
-                            <SeatVerticalInner key={seat.id}>
-                                <SeatVertical>
+                            <SeatRowInner key={seat.id}>
+                                <SeatRow>
                                     {seat.row.slice(0, seat.row.length / 2).map((zone) => (
                                         <SeatZone
                                             key={zone.id}
@@ -40,11 +44,13 @@ export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: 
                                                     ? "selected"
                                                     : ""
                                             }
-                                            onClick={() => handleSelectSeat(zone.id, seat.column)}
+                                            onClick={() =>
+                                                toggleSeatSelection(zone.id, seat.column)
+                                            }
                                         />
                                     ))}
-                                </SeatVertical>
-                                <SeatVertical>
+                                </SeatRow>
+                                <SeatRow>
                                     {seat.row.slice(seat.row.length / 2).map((zone) => (
                                         <SeatZone
                                             key={zone.id}
@@ -55,13 +61,15 @@ export default function SeatingChart({ data, selectedSeats, handleSelectSeat }: 
                                                     ? "selected"
                                                     : ""
                                             }
-                                            onClick={() => handleSelectSeat(zone.id, seat.column)}
+                                            onClick={() =>
+                                                toggleSeatSelection(zone.id, seat.column)
+                                            }
                                         />
                                     ))}
-                                </SeatVertical>
-                            </SeatVerticalInner>
+                                </SeatRow>
+                            </SeatRowInner>
                         ))}
-                    </SeatVerticalContainer>
+                    </SeatRowContainer>
                 </div>
             </SeatingChartContainer>
         </>
@@ -107,7 +115,7 @@ const SeatColumn = styled.div`
     }
 `;
 
-const SeatVerticalContainer = styled.div`
+const SeatRowContainer = styled.div`
     min-width: fit-content;
     display: flex;
     flex-direction: column;
@@ -115,13 +123,13 @@ const SeatVerticalContainer = styled.div`
     padding-right: 2rem;
 `;
 
-const SeatVerticalInner = styled.div`
+const SeatRowInner = styled.div`
     display: flex;
     align-items: center;
     gap: 3.2rem;
 `;
 
-const SeatVertical = styled.div`
+const SeatRow = styled.div`
     display: flex;
     gap: 0.4rem;
 `;
