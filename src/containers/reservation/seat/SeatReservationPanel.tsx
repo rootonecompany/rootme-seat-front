@@ -1,9 +1,10 @@
-import { Colors } from "@/utils/style/colors";
-import styled from "styled-components";
-import Notice from "/public/images/icons/icon_notice.svg";
+import Image from "next/image";
 import useModal from "@/hooks/useModal";
 import DynamicModal from "@/components/modal/DynamicModal";
 import ConfirmationModal from "@/components/modal/ui/ConfirmationModal";
+import { EnabledButton } from "@/components/button/Button";
+import styled from "styled-components";
+import { Colors } from "@/utils/style/colors";
 
 interface SeatReservationPanelProps {
     selectedSeats: { [key: string]: number[] };
@@ -50,17 +51,19 @@ export default function SeatReservationPanel({
                         )}
                     </SeatReservationSummaryViewInner>
                     <SeatReservationSummaryNotice>
-                        <Notice width={16} height={16} />
+                        <Image
+                            src={"/images/icons/icon_notice.svg"}
+                            width={16}
+                            height={16}
+                            alt="알림"
+                        />
                         <span>중복 좌석 선택이 가능합니다.</span>
                     </SeatReservationSummaryNotice>
                 </SeatReservationSummaryView>
             </SeatReservationSummaryContainer>
-            <SeatReservationSummaryButton
-                disabled={Object.keys(selectedSeats).length === 0}
-                onClick={openModal}
-            >
+            <EnabledButton disabled={Object.keys(selectedSeats).length === 0} onClick={openModal}>
                 예매하기
-            </SeatReservationSummaryButton>
+            </EnabledButton>
             <DynamicModal open={isOpen} close={closeModal}>
                 <ConfirmationModal
                     title="좌석을 예매하시겠습니까?"
@@ -78,15 +81,15 @@ const SeatReservationSummary = styled.div`
     max-width: 76.8rem;
     display: flex;
     flex-direction: column;
-    padding: 3rem 2rem 3.8rem;
+    padding: 2.6rem 2rem 3.6rem;
     border-radius: 2.6rem 2.6rem 0 0;
-    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.12);
     overflow: hidden;
 `;
 
 const SeatReservationSummaryContainer = styled.div`
     flex: 1;
-    margin-bottom: 4.4rem;
+    margin-bottom: 4rem;
     & > h6 {
         font-size: 1.8rem;
         font-weight: 700;
@@ -134,21 +137,5 @@ const SeatReservationSummaryNotice = styled.div`
         font-size: 1.2rem;
         font-weight: 500;
         color: ${Colors.black9A9A9A};
-    }
-`;
-
-const SeatReservationSummaryButton = styled.button`
-    width: 100%;
-    min-height: 5rem;
-    border-radius: 0.8rem;
-    border: none;
-    background: ${Colors.yanoljaPrimary};
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: ${Colors.systemWhite};
-    cursor: pointer;
-
-    &:disabled {
-        background: ${Colors.blackE2E2E2};
     }
 `;

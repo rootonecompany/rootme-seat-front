@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useHandleInput from "@/hooks/useHandleInput";
 import { pretendard } from "@/utils/style/fonts";
 import { Colors } from "@/utils/style/colors";
+import { EnabledButton } from "@/components/button/Button";
 
 interface UserInputFormData {
     orderNumber: string;
@@ -12,9 +13,14 @@ interface UserInputFormData {
 export default function ReservationContainer() {
     const { inputValue, handleInputValue } = useHandleInput<UserInputFormData>();
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        sessionStorage.setItem("orderNumber", inputValue.orderNumber);
+    };
+
     return (
         <ReservationBody>
-            <Form>
+            <Form onSubmit={handleSubmit}>
                 <FormFieldSet>
                     <label htmlFor="orderNumber">
                         <h6>좌석예매</h6>
@@ -31,9 +37,9 @@ export default function ReservationContainer() {
                     />
                     <span>주문번호를 다시 입력해주세요.</span>
                 </FormFieldSet>
-                <SubmitButton type="submit" disabled={!inputValue.orderNumber}>
+                <EnabledButton type="submit" disabled={!inputValue.orderNumber}>
                     확인
-                </SubmitButton>
+                </EnabledButton>
             </Form>
         </ReservationBody>
     );
@@ -44,7 +50,7 @@ const ReservationBody = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 3rem;
+    padding-top: 4rem;
 `;
 const Form = styled.form`
     width: 100%;
@@ -54,6 +60,7 @@ const Form = styled.form`
 const FormFieldSet = styled.fieldset`
     display: flex;
     flex-direction: column;
+    margin-bottom: 1.4rem;
     label {
         display: flex;
         flex-direction: column;
@@ -101,19 +108,5 @@ const FormFieldSet = styled.fieldset`
         span {
             display: block;
         }
-    }
-`;
-const SubmitButton = styled.button`
-    width: 100%;
-    height: 5rem;
-    margin-top: 1.4rem;
-    border: none;
-    background: ${Colors.buttonGradient};
-    border-radius: 0.8rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: ${Colors.systemWhite};
-    &:disabled {
-        background: ${Colors.blackE2E2E2};
     }
 `;

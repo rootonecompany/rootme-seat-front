@@ -45,6 +45,7 @@ export const GlobalStyle = createGlobalStyle`
         text-rendering: optimizeLegibility;
         -webkit-text-size-adjust: 100%;
         -ms-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
     }
     ol, ul {
         list-style: none;

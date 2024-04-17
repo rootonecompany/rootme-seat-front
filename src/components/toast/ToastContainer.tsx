@@ -1,13 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import styled, { keyframes } from "styled-components";
-import ErrorNotice from "/public/images/icons/icon_error_notice.svg";
 import { Colors } from "@/utils/style/colors";
 
 export default function ToastContainer({ text }: { text: string }) {
     return (
         <Toast>
-            <ErrorNotice width={20} height={20} />
+            <Image src={"/images/icons/icon_error_notice.svg"} width={20} height={20} alt="에러" />
             <span>{text}</span>
         </Toast>
     );

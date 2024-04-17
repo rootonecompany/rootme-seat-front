@@ -30,7 +30,6 @@ const HeaderContainer = styled.header`
     top: 0;
     width: 100%;
     background-color: ${Colors.systemWhite};
-    box-shadow: 0px 0px 0px 0.1rem #e6e6e6;
     z-index: 9999;
 `;
 const HeaderInner = styled.div`
@@ -43,7 +42,7 @@ const HeaderInner = styled.div`
     margin: 0 auto;
     height: 5.6rem;
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         color: #1a1a1a;
         font-weight: 600;
     }

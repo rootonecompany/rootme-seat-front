@@ -81,7 +81,7 @@ const SeatingChartContainer = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 2.4rem 0 0;
+    padding: 4.6rem 0 0;
 
     .scroll {
         position: relative;
@@ -117,6 +117,7 @@ const SeatColumn = styled.div`
 
 const SeatRowContainer = styled.div`
     min-width: fit-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -145,7 +146,7 @@ const SeatZone = styled.button<{ $zone: number }>`
             case 1:
                 return Colors.blackCECECE;
             case 2:
-                return Colors.yanoljaSecondary;
+                return Colors.black696969;
         }
     }};
 

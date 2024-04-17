@@ -51,7 +51,7 @@ const ModalContent = styled.div`
     width: calc(100% - 4rem);
     max-width: 32rem;
     border-radius: 1.2rem;
-    padding: 3.6rem 2rem 1.8rem;
+    padding: 3.6rem 2rem 2rem;
     background: ${Colors.systemWhite};
     z-index: 200;
 `;

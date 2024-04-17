@@ -1,5 +1,6 @@
 "use client";
 
+import { ModalActionButton } from "@/components/button/Button";
 import { Colors } from "@/utils/style/colors";
 import styled from "styled-components";
 
@@ -25,8 +26,10 @@ export default function ConfirmationModal({
                 <p>{message}</p>
             </ConfirmationContent>
             <ConfirmationButtonContainer>
-                <button onClick={close}>아니요</button>
-                <button onClick={handler}>{buttonText}</button>
+                <ModalActionButton onClick={close}>아니요</ModalActionButton>
+                <ModalActionButton onClick={handler} $primary>
+                    {buttonText}
+                </ModalActionButton>
             </ConfirmationButtonContainer>
         </ConfirmationModalContainer>
     );
@@ -35,7 +38,7 @@ export default function ConfirmationModal({
 const ConfirmationModalContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 3.2rem;
+    gap: 2.8rem;
 `;
 const ConfirmationContent = styled.div`
     display: flex;
@@ -53,7 +56,7 @@ const ConfirmationContent = styled.div`
 
     p {
         font-size: 1.4rem;
-        font-weight: 400;
+        font-weight: 500;
         line-height: 1.38;
         color: ${Colors.black9A9A9A};
         white-space: pre-line;
@@ -64,22 +67,4 @@ const ConfirmationButtonContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    button {
-        flex: 1;
-        height: 4.8rem;
-        border-radius: 1rem;
-        border: none;
-        background: ${Colors.blackF0F0F0};
-        font-size: 1.4rem;
-        font-weight: 500;
-        color: ${Colors.black1A1A1A};
-        cursor: pointer;
-
-        &:last-child {
-            background: ${Colors.yanoljaPrimary};
-            color: ${Colors.systemWhite};
-            font-weight: 700;
-        }
-    }
 `;
