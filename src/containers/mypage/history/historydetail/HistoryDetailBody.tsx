@@ -4,13 +4,8 @@ import styled from "styled-components";
 import { Colors } from "@/utils/style/colors";
 import HistoryDetailNotice from "./HistoryDetailNotice";
 import useModal from "@/hooks/useModal";
-import DynamicModal from "@/components/modal/DynamicModal";
-import ConfirmationModal from "@/components/modal/ui/ConfirmationModal";
-import { ActionButton } from "@/components/button/Button";
 
 export default function HistoryDetailBody() {
-    const { isOpen, openModal, closeModal } = useModal();
-
     return (
         <HistoryDetailBodyContainer>
             <HistoryDetailBodyInner>
@@ -40,21 +35,12 @@ export default function HistoryDetailBody() {
             </HistoryDetailBodyInner>
             <HistoryDetailOptions>
                 <HistoryDetailNotice />
-                <ActionButton onClick={openModal}>예매취소</ActionButton>
             </HistoryDetailOptions>
-            <DynamicModal open={isOpen} close={closeModal}>
-                <ConfirmationModal
-                    title="예매를 취소하시겠습니까?"
-                    message={`결제 취소 및 환불까지 평균 3~5일이\n소모될 수 있습니다.`}
-                    close={closeModal}
-                    buttonText="예매취소"
-                />
-            </DynamicModal>
         </HistoryDetailBodyContainer>
     );
 }
 
-const HistoryDetailBodyContainer = styled.div`
+const HistoryDetailBodyContainer = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -107,4 +93,5 @@ const HistoryDetailOptions = styled.div`
     flex-direction: column;
     gap: 1rem;
     margin-top: 1.8rem;
+    padding: 0 2rem;
 `;

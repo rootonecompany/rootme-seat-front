@@ -41,7 +41,7 @@ export default function HistoryDetailHead() {
     );
 }
 
-const HistoryDetailHeadContainer = styled.div`
+const HistoryDetailHeadContainer = styled.section`
     width: 100%;
     display: flex;
     flex-direction: column;

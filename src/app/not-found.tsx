@@ -2,13 +2,13 @@
 
 import styled from "styled-components";
 import { Colors } from "@/utils/style/colors";
-import { useRouter } from "next/navigation";
+import useRouterPush from "@/hooks/useRouterPush";
 
 export default function NotFound() {
-    const router = useRouter();
+    const { handleRouterPush } = useRouterPush();
 
     const handleGoHome = () => {
-        router.push("/reservation");
+        handleRouterPush("/reservation");
     };
 
     return (

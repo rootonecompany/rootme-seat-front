@@ -26,7 +26,7 @@ export default function ScheduleContainer() {
     );
 }
 
-const FixedButton = styled.div`
+const FixedButton = styled.section`
     position: fixed;
     left: 50%;
     bottom: 0;

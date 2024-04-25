@@ -40,7 +40,7 @@ export default function Calendar({ startDate, setStartDate }: CalendarProps) {
     );
 }
 
-const CalendarContainer = styled.div`
+const CalendarContainer = styled.section`
     width: 100%;
     max-width: 48rem;
     padding: 0 2rem;

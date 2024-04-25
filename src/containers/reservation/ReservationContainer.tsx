@@ -2,28 +2,54 @@
 
 import styled from "styled-components";
 import useHandleInput from "@/hooks/useHandleInput";
+import useRouterPush from "@/hooks/useRouterPush";
 import { pretendard } from "@/utils/style/fonts";
 import { Colors } from "@/utils/style/colors";
 import { EnabledButton } from "@/components/button/Button";
+import { createCookie } from "@/utils/action";
 
 interface UserInputFormData {
     orderNumber: string;
 }
 
-export default function ReservationContainer() {
+interface Props {
+    handleReservationCheck: () => Promise<any>;
+}
+
+type ReservationCheck = {
+    result: boolean;
+    date: string;
+    orderNum: string;
+    seats: string[];
+    theaterLocation: string;
+    theaterName: string;
+    theaterTitle: string | null;
+    time: string;
+    userName: string;
+    userPhone: string | null;
+};
+
+export default function ReservationContainer({ handleReservationCheck }: Props) {
+    const { handleRouterPush } = useRouterPush();
     const { inputValue, handleInputValue } = useHandleInput<UserInputFormData>();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sessionStorage.setItem("orderNumber", inputValue.orderNumber);
+        try {
+            const res: ReservationCheck = await handleReservationCheck();
+            await createCookie("orderNumber", inputValue.orderNumber);
+            res.result ? null : handleRouterPush("/reservation/option");
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
-        <ReservationBody>
+        <ReservationWrapper>
             <Form onSubmit={handleSubmit}>
                 <FormFieldSet>
                     <label htmlFor="orderNumber">
-                        <h6>좌석예매</h6>
+                        <h6>예매조회</h6>
                         <p>주문번호를 먼저 입력해주세요!</p>
                     </label>
                     <input
@@ -41,11 +67,11 @@ export default function ReservationContainer() {
                     확인
                 </EnabledButton>
             </Form>
-        </ReservationBody>
+        </ReservationWrapper>
     );
 }
 
-const ReservationBody = styled.section`
+const ReservationWrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;

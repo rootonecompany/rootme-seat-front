@@ -95,7 +95,7 @@ export default function ScheduleTimeSelector({
     );
 }
 
-const ScheduleTimeSelectorContainer = styled.div`
+const ScheduleTimeSelectorContainer = styled.section`
     width: 100%;
     max-width: 48rem;
     padding: 0 2rem 9.6rem;
