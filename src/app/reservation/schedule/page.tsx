@@ -17,7 +17,11 @@ const ScheduleSelectionPage: NextPage = async () => {
                 headerLeft={<HeaderBackButton />}
             />
             <BasicLayout>
-                <ScheduleContainer dates={dates} />
+                {!dates ? (
+                    <div>알수없는 에러가 발생했습니다.</div>
+                ) : (
+                    <ScheduleContainer dates={dates} />
+                )}
             </BasicLayout>
         </>
     );
