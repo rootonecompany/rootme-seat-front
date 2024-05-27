@@ -11,13 +11,13 @@ interface Params {
 
 const ReservationSeat: NextPage<Params> = async ({ params }) => {
     const seats = await getSeats(params.seat);
-    console.log(seats);
     return (
         <>
-            {/* <Header title="좌석 예매하기" headerLeft={<HeaderBackButton />} />
+            <Header title="좌석 예매하기" headerLeft={<HeaderBackButton />} />
             <BasicLayout>
-                <SeatContainer seats={seats} />
-            </BasicLayout> */}
+                hello
+                {/* <SeatContainer seats={seats} /> */}
+            </BasicLayout>
         </>
     );
 };
