@@ -7,6 +7,7 @@ import { ko } from "date-fns/locale";
 import { Colors } from "@/utils/style/colors";
 import { Dates, Times } from "@/interface";
 import { formatISO } from "date-fns";
+import { toDate, format as tzFormat } from "date-fns-tz";
 import { getTimes } from "@/services/reservationAction";
 import { hasCookie } from "@/utils/action";
 
@@ -62,7 +63,9 @@ export default function Calendar({
                     />
                 )}
                 selected={selectedDate}
-                includeDates={performanceDate.dates.map((date) => new Date(date.date))}
+                includeDates={performanceDate.dates.map((date) =>
+                    toDate(date.date, { timeZone: "Asia/Seoul" })
+                )}
                 onChange={(date) => {
                     handleSelectDate(date as Date);
                 }}
