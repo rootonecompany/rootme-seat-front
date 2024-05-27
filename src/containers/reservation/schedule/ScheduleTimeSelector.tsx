@@ -33,7 +33,7 @@ export default function ScheduleTimeSelector({
                 </span>
             </ScheduleDate>
             <ScheduleTimeList>
-                {renderTimes &&
+                {/* {renderTimes &&
                     renderTimes.map((item, index) => (
                         <li
                             key={item.id}
@@ -52,7 +52,7 @@ export default function ScheduleTimeSelector({
                                 className={`count ${Number(item.enabled_count) <= 0 ? "zero" : ""}`}
                             >{`잔여 ${item.enabled_count}`}</span>
                         </li>
-                    ))}
+                    ))} */}
             </ScheduleTimeList>
         </ScheduleTimeSelectorContainer>
     );
