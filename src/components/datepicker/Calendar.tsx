@@ -7,7 +7,7 @@ import { ko } from "date-fns/locale";
 import { Colors } from "@/utils/style/colors";
 import { Dates, Times } from "@/interface";
 import { formatISO } from "date-fns";
-import { toDate } from "date-fns-tz";
+import { toDate, format as tzFormat } from "date-fns-tz";
 import { getTimes } from "@/services/reservationAction";
 import { hasCookie } from "@/utils/action";
 
@@ -47,36 +47,34 @@ export default function Calendar({
 
     return (
         <CalendarContainer>
-            <ReactDatePicker
-                locale={ko}
-                weekDayClassName={(date) =>
-                    date.getDay() === 0 || date.getDay() === 6
-                        ? "react-datepicker__day--weekend"
-                        : null
-                }
-                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) =>
-                    performanceDate && (
+            {performanceDate && performanceDate.dates.length > 0 ? (
+                <ReactDatePicker
+                    locale={ko}
+                    weekDayClassName={(date) =>
+                        date.getDay() === 0 || date.getDay() === 6
+                            ? "react-datepicker__day--weekend"
+                            : null
+                    }
+                    renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
                         <CalendarHeader
                             date={date}
                             decreaseMonth={decreaseMonth}
                             increaseMonth={increaseMonth}
                             performanceDate={performanceDate}
                         />
-                    )
-                }
-                selected={selectedDate}
-                includeDates={
-                    performanceDate
-                        ? performanceDate.dates.map((date) =>
-                              toDate(date.date, { timeZone: "Asia/Seoul" })
-                          )
-                        : undefined
-                }
-                onChange={(date) => {
-                    handleSelectDate(date as Date);
-                }}
-                inline
-            />
+                    )}
+                    selected={selectedDate}
+                    includeDates={performanceDate.dates.map((date) =>
+                        toDate(date.date, { timeZone: "Asia/Seoul" })
+                    )}
+                    onChange={(date) => {
+                        handleSelectDate(date as Date);
+                    }}
+                    inline
+                />
+            ) : (
+                <div>날짜 정보가 없습니다.</div>
+            )}
         </CalendarContainer>
     );
 }
