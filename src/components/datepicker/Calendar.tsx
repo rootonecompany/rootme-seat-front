@@ -7,7 +7,7 @@ import { ko } from "date-fns/locale";
 import { Colors } from "@/utils/style/colors";
 import { Dates, Times } from "@/interface";
 import { formatISO } from "date-fns";
-import { toDate, format as tzFormat } from "date-fns-tz";
+import { toDate } from "date-fns-tz";
 import { getTimes } from "@/services/reservationAction";
 import { hasCookie } from "@/utils/action";
 

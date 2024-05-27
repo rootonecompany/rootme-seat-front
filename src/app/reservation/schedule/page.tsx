@@ -10,7 +10,10 @@ const ScheduleSelectionPage: NextPage = async () => {
 
     return (
         <>
-            <Header title="서울 상상나라 극장 - 고릴라 대모험" headerLeft={<HeaderBackButton />} />
+            <Header
+                title="서울 상상나라 극장 - 고릴라 대모험 1"
+                headerLeft={<HeaderBackButton />}
+            />
             <BasicLayout>
                 <ScheduleContainer dates={dates} />
             </BasicLayout>
