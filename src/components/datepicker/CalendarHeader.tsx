@@ -1,5 +1,6 @@
 "use client";
 
+import { Dates } from "@/interface";
 import { Colors } from "@/utils/style/colors";
 import Image from "next/image";
 import styled from "styled-components";
@@ -8,20 +9,27 @@ interface CalendarHeaderProps {
     date: Date;
     decreaseMonth: () => void;
     increaseMonth: () => void;
+    performanceDate: Dates;
 }
 
 export default function CalendarHeader({
     date,
     decreaseMonth,
     increaseMonth,
+    performanceDate,
 }: CalendarHeaderProps) {
+    const firstPerformanceDate = new Date(performanceDate.dates[0].date);
+    const lastPerformanceDate = new Date(
+        performanceDate.dates[performanceDate.dates.length - 1].date
+    );
+
     return (
         <CalendarHeaderContainer>
             <button
                 onClick={decreaseMonth}
                 disabled={
                     date.getFullYear() === new Date().getFullYear() &&
-                    date.getMonth() === new Date().getMonth()
+                    firstPerformanceDate.getMonth() === date.getMonth()
                 }
             >
                 <Image
@@ -36,7 +44,13 @@ export default function CalendarHeader({
                 {date.getFullYear()}.{" "}
                 {date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`}
             </span>
-            <button onClick={increaseMonth}>
+            <button
+                onClick={increaseMonth}
+                disabled={
+                    date.getFullYear() === new Date().getFullYear() &&
+                    lastPerformanceDate.getMonth() === date.getMonth()
+                }
+            >
                 <Image
                     src={"/images/btns/btn_calendar_next.svg"}
                     alt="다음달"

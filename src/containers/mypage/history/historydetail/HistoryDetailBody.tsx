@@ -3,9 +3,9 @@
 import styled from "styled-components";
 import { Colors } from "@/utils/style/colors";
 import HistoryDetailNotice from "./HistoryDetailNotice";
-import useModal from "@/hooks/useModal";
+import { Invoice } from "@/interface";
 
-export default function HistoryDetailBody() {
+export default function HistoryDetailBody({ invoice }: { invoice: Invoice }) {
     return (
         <HistoryDetailBodyContainer>
             <HistoryDetailBodyInner>
@@ -13,23 +13,23 @@ export default function HistoryDetailBody() {
                 <ul>
                     <li>
                         <strong>주문자명</strong>
-                        <span>임○식</span>
+                        <span>{invoice.name}</span>
                     </li>
                     <li>
                         <strong>주문번호</strong>
-                        <span>KFJDO23KDF3</span>
+                        <span>{invoice.orderNum}</span>
                     </li>
                     <li>
                         <strong>선택한 좌석</strong>
-                        <span>가 12번, 나21번</span>
+                        <span>{invoice.seats.join(", ")}</span>
                     </li>
                     <li>
                         <strong>공연날짜</strong>
-                        <span>2024.04.23</span>
+                        <span>{invoice.date.replaceAll("-", ".")}</span>
                     </li>
                     <li>
                         <strong>장소</strong>
-                        <span>서울시 광진구 능동로216, 서울상상나라 지하 1층</span>
+                        <span>{invoice.theaterLocation}</span>
                     </li>
                 </ul>
             </HistoryDetailBodyInner>

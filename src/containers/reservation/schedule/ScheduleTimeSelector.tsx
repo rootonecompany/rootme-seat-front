@@ -1,21 +1,24 @@
 "use client";
 
-import { Colors } from "@/utils/style/colors";
 import Image from "next/image";
 import styled from "styled-components";
+import { Times } from "@/interface";
+import { Colors } from "@/utils/style/colors";
 
 interface ScheduleTimeSelectorProps {
     date: Date | null;
-    selectedTime: string;
-    setSelectedTime: (time: string) => void;
+    renderTimes: Times[] | undefined;
+    selectedTime: number | undefined;
+    setSelectedTime: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
 export default function ScheduleTimeSelector({
     date,
+    renderTimes,
     selectedTime,
     setSelectedTime,
 }: ScheduleTimeSelectorProps) {
-    const handleSelectTime = (time: string) => {
+    const handleSelectTime = (time: number) => {
         setSelectedTime(time);
     };
 
@@ -30,66 +33,26 @@ export default function ScheduleTimeSelector({
                 </span>
             </ScheduleDate>
             <ScheduleTimeList>
-                <li
-                    datatype="time-1"
-                    className={(selectedTime === "time-1" && "selected") || ""}
-                    onClick={(e) =>
-                        handleSelectTime((e.target as HTMLLIElement).getAttribute("datatype")!)
-                    }
-                >
-                    <span className="time">1회차 (12:00)</span>
-                    <span className="count zero">
-                        잔여 <span>0</span>
-                    </span>
-                </li>
-                <li
-                    datatype="time-2"
-                    className={(selectedTime === "time-2" && "selected") || ""}
-                    onClick={(e) =>
-                        handleSelectTime((e.target as HTMLLIElement).getAttribute("datatype")!)
-                    }
-                >
-                    <span className="time">2회차 (19:00)</span>
-                    <span className="count">
-                        잔여 <span>28</span>
-                    </span>
-                </li>
-                <li
-                    datatype="time-3"
-                    className={(selectedTime === "time-3" && "selected") || ""}
-                    onClick={(e) =>
-                        handleSelectTime((e.target as HTMLLIElement).getAttribute("datatype")!)
-                    }
-                >
-                    <span className="time">2회차 (19:00)</span>
-                    <span className="count">
-                        잔여 <span>28</span>
-                    </span>
-                </li>
-                <li
-                    datatype="time-4"
-                    className={(selectedTime === "time-4" && "selected") || ""}
-                    onClick={(e) =>
-                        handleSelectTime((e.target as HTMLLIElement).getAttribute("datatype")!)
-                    }
-                >
-                    <span className="time">2회차 (19:00)</span>
-                    <span className="count">
-                        잔여 <span>28</span>
-                    </span>
-                </li>
-                <li
-                    datatype="time-5"
-                    className={(selectedTime === "time-5" && "selected") || ""}
-                    onClick={(e) =>
-                        handleSelectTime((e.target as HTMLLIElement).getAttribute("datatype")!)
-                    }
-                >
-                    <span className="time">2회차 (19:00)</span>
-                    <span className="count">
-                        잔여 <span>28</span>
-                    </span>
-                </li>
+                {renderTimes &&
+                    renderTimes.map((item, index) => (
+                        <li
+                            key={item.id}
+                            datatype={item.id}
+                            className={(selectedTime === Number(item.id) && "selected") || ""}
+                            onClick={(e) =>
+                                handleSelectTime(
+                                    Number(
+                                        (e.currentTarget as HTMLLIElement).getAttribute("datatype")!
+                                    )
+                                )
+                            }
+                        >
+                            <span className="time">{`${index + 1}회차 (${item.time})`}</span>
+                            <span
+                                className={`count ${Number(item.enabled_count) <= 0 ? "zero" : ""}`}
+                            >{`잔여 ${item.enabled_count}`}</span>
+                        </li>
+                    ))}
             </ScheduleTimeList>
         </ScheduleTimeSelectorContainer>
     );

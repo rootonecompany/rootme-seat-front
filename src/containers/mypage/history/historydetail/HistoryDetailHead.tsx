@@ -4,13 +4,19 @@ import Image from "next/image";
 import Thumbnail from "/public/images/thumbnails/thumbnail.png";
 import { Colors } from "@/utils/style/colors";
 import styled from "styled-components";
-import useModal from "@/hooks/useModal";
-import DynamicModal from "@/components/modal/DynamicModal";
-import ConfirmationModal from "@/components/modal/ui/ConfirmationModal";
 import { ActionButton } from "@/components/button/Button";
+import { useEffect } from "react";
+import { removeCookie } from "@/utils/action";
+import { Invoice } from "@/interface";
 
-export default function HistoryDetailHead() {
-    const { isOpen, openModal, closeModal } = useModal();
+export default function HistoryDetailHead({ invoice }: { invoice: Invoice }) {
+    const time = invoice.time.replace(/(\d{2}):(\d{2})/, function (match, p1, p2) {
+        return `${parseInt(p1) < 12 ? "오전" : "오후"} ${p1}:${p2}`;
+    });
+
+    useEffect(() => {
+        removeCookie("orderNumber");
+    }, []);
 
     return (
         <HistoryDetailHeadContainer>
@@ -19,23 +25,16 @@ export default function HistoryDetailHead() {
                     <Image src={Thumbnail} width={78} height={104} alt="테스트 썸네일" priority />
                     <div>
                         <strong>뮤지컬 〈달 샤베트〉 - 서울숲 </strong>
-                        <span className="location">서울 상상나라 극장</span>
-                        <span className="date">2024.04.23 · 오후 6:00 · 2명</span>
+                        <span className="location">{invoice.theaterName}</span>
+                        <span className="date">
+                            {invoice.date.replaceAll("-", ".")} · {time} ·{" "}
+                            {`${invoice.seats.length} 명`}
+                        </span>
                     </div>
                 </HistoryDetailProductInfo>
                 <HistoryDetailAction>
-                    <ActionButton onClick={openModal} $primary>
-                        티켓보기
-                    </ActionButton>
+                    <ActionButton $primary>티켓보기</ActionButton>
                 </HistoryDetailAction>
-                <DynamicModal open={isOpen} close={closeModal}>
-                    <ConfirmationModal
-                        title="좌석을 변경하시겠습니까?"
-                        message={`좌석을 변경하실 경우\n기존 좌석은 예약이 취소됩니다.`}
-                        close={closeModal}
-                        buttonText="변경하기"
-                    />
-                </DynamicModal>
             </HistoryDetailHeadInner>
         </HistoryDetailHeadContainer>
     );

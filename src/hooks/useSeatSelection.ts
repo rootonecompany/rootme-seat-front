@@ -2,8 +2,9 @@ import { useState } from "react";
 
 export default function useSeatSelection() {
     const [selectedSeats, setSelectedSeats] = useState<{ [key: string]: number[] }>({});
+    const [selectedSeatsId, setSelectedSeatsId] = useState<number[]>([]);
 
-    const toggleSeatSelection = (row: number, column: string) => {
+    const toggleSeatSelection = (row: number, column: string, seatId: number) => {
         setSelectedSeats((prevSelectedSeats) => {
             const seatKey = `${column}`;
             const isSelected = prevSelectedSeats[seatKey]?.includes(row);
@@ -21,6 +22,8 @@ export default function useSeatSelection() {
                 delete updatedSeats[seatKey];
             }
 
+            setSelectedSeatsId([...selectedSeatsId, seatId]);
+
             return updatedSeats;
         });
     };
@@ -32,6 +35,7 @@ export default function useSeatSelection() {
 
     return {
         selectedSeats,
+        selectedSeatsId,
         toggleSeatSelection,
         totalSelectedSeats,
     };

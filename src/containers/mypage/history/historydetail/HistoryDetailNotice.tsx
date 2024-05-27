@@ -8,11 +8,7 @@ export default function HistoryDetailNotice() {
     return (
         <HistoryDetailNoticeContainer>
             <ErrorNotice width={20} height={20} />
-            <span>
-                예매 정보가 맞는지 정확히 확인해주세요.
-                <br />
-                환불은 영업일 기준 3~5일 소요될 수 있습니다.
-            </span>
+            <span>예매 정보가 맞는지 정확히 확인해주세요.</span>
         </HistoryDetailNoticeContainer>
     );
 }

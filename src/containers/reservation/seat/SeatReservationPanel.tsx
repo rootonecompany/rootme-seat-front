@@ -1,21 +1,47 @@
 import Image from "next/image";
+import styled from "styled-components";
 import useModal from "@/hooks/useModal";
 import DynamicModal from "@/components/modal/DynamicModal";
 import ConfirmationModal from "@/components/modal/ui/ConfirmationModal";
 import { EnabledButton } from "@/components/button/Button";
-import styled from "styled-components";
 import { Colors } from "@/utils/style/colors";
+import { getCookie, hasCookie } from "@/utils/action";
+import { postReservation } from "@/services/reservationAction";
+import useRouterPush from "@/hooks/useRouterPush";
 
 interface SeatReservationPanelProps {
     selectedSeats: { [key: string]: number[] };
     totalSelectedSeats: number;
+    selectedSeatsId: number[];
 }
 
 export default function SeatReservationPanel({
     selectedSeats,
     totalSelectedSeats,
+    selectedSeatsId,
 }: SeatReservationPanelProps) {
+    const { handleRouterReplace } = useRouterPush();
     const { isOpen, openModal, closeModal } = useModal();
+
+    const handleReservation = async () => {
+        const hasMyCookie = await hasCookie("orderNumber", "/reservation");
+        const getMyCookie = await getCookie("orderNumber");
+        const seatIds = selectedSeatsId;
+
+        if (hasMyCookie) {
+            try {
+                if (getMyCookie !== undefined) {
+                    const result = await postReservation(getMyCookie.value, seatIds);
+                    if (result) {
+                        closeModal();
+                        return handleRouterReplace(`/mypage/history/${getMyCookie.value}`);
+                    }
+                }
+            } catch (error) {
+                throw error;
+            }
+        }
+    };
 
     return (
         <SeatReservationSummary>
@@ -57,7 +83,7 @@ export default function SeatReservationPanel({
                             height={16}
                             alt="알림"
                         />
-                        <span>중복 좌석 선택이 가능합니다.</span>
+                        <span>다중 좌석 선택이 가능합니다.</span>
                     </SeatReservationSummaryNotice>
                 </SeatReservationSummaryView>
             </SeatReservationSummaryContainer>
@@ -70,6 +96,7 @@ export default function SeatReservationPanel({
                     message={`공연시간 10분 전에는\n 좌석을 변경하실수 없습니다.`}
                     buttonText="예매하기"
                     close={closeModal}
+                    handler={handleReservation}
                 />
             </DynamicModal>
         </SeatReservationSummary>

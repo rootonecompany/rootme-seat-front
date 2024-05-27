@@ -5,14 +5,44 @@ import ReactDatePicker from "react-datepicker";
 import CalendarHeader from "./CalendarHeader";
 import { ko } from "date-fns/locale";
 import { Colors } from "@/utils/style/colors";
+import { Dates, Times } from "@/interface";
+import { formatISO } from "date-fns";
+import { getTimes } from "@/services/reservationAction";
+import { hasCookie } from "@/utils/action";
 
 interface CalendarProps {
-    startDate: Date | null;
-    setStartDate: (date: Date | null) => void;
+    selectedDate: Date | null;
+    setSelectedDate: (date: Date | null) => void;
+    setRenderTimes: React.Dispatch<React.SetStateAction<Times[] | undefined>>;
+    performanceDate: Dates;
+    setSelectedTime: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-export default function Calendar({ startDate, setStartDate }: CalendarProps) {
-    const testDate = ["2024-04-27", "2024-04-28", "2024 04 29", "2024 04 30", "2024 05 01"];
+export default function Calendar({
+    selectedDate,
+    setSelectedDate,
+    setRenderTimes,
+    performanceDate,
+    setSelectedTime,
+}: CalendarProps) {
+    const handleSelectDate = async (date: Date) => {
+        const hasMycookie = await hasCookie("orderNumber", "/reservation");
+        if (hasMycookie) {
+            try {
+                const formattedDate = formatISO(date as Date).slice(0, 10);
+                const fetchDate = performanceDate.dates.find(
+                    (performance) => performance.date === formattedDate
+                );
+                const result = fetchDate && (await getTimes(fetchDate.id));
+
+                setSelectedDate(date);
+                setSelectedTime(undefined);
+                return setRenderTimes(result);
+            } catch (error) {
+                throw error;
+            }
+        }
+    };
 
     return (
         <CalendarContainer>
@@ -28,12 +58,14 @@ export default function Calendar({ startDate, setStartDate }: CalendarProps) {
                         date={date}
                         decreaseMonth={decreaseMonth}
                         increaseMonth={increaseMonth}
+                        performanceDate={performanceDate}
                     />
                 )}
-                selected={startDate}
-                includeDates={testDate.map((date) => new Date(date))}
-                minDate={new Date()}
-                onChange={(date) => setStartDate(date)}
+                selected={selectedDate}
+                includeDates={performanceDate.dates.map((date) => new Date(date.date))}
+                onChange={(date) => {
+                    handleSelectDate(date as Date);
+                }}
                 inline
             />
         </CalendarContainer>

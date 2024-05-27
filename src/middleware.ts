@@ -4,9 +4,12 @@ import type { NextRequest } from "next/server";
 export function middleware(request: NextRequest) {
     const { cookies } = request;
     const hasCookie = cookies.has("orderNumber");
-    if (!hasCookie) {
-        return NextResponse.redirect(new URL("/reservation", request.nextUrl.origin));
+
+    if (hasCookie) {
+        return NextResponse.next();
     }
+
+    return NextResponse.redirect(new URL("/reservation", request.url));
 }
 
 export const config = {

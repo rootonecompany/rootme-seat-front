@@ -1,23 +1,17 @@
 "use client";
 
+import styled, { css } from "styled-components";
+import { Seats } from "@/interface";
 import { Colors } from "@/utils/style/colors";
-import styled from "styled-components";
 
 interface SeatingChartProps {
-    data: {
-        id: number;
-        column: string;
-        row: {
-            id: number;
-            state: number;
-        }[];
-    }[];
+    seats: Seats;
     selectedSeats: { [key: string]: number[] };
-    toggleSeatSelection: (row: number, column: string) => void;
+    toggleSeatSelection: (row: number, column: string, seatId: number) => void;
 }
 
 export default function SeatingChart({
-    data,
+    seats,
     selectedSeats,
     toggleSeatSelection,
 }: SeatingChartProps) {
@@ -25,45 +19,67 @@ export default function SeatingChart({
         <>
             <SeatingChartContainer>
                 <SeatColumn>
-                    {data.map((seat) => (
-                        <span key={seat.id}>{seat.column}</span>
+                    {seats.rows.map((seat) => (
+                        <span key={seat.id}>{seat.name}</span>
                     ))}
                 </SeatColumn>
                 <div className="scroll">
                     <SeatRowContainer>
-                        {data.map((seat) => (
+                        {seats.rows.map((seat) => (
                             <SeatRowInner key={seat.id}>
                                 <SeatRow>
-                                    {seat.row.slice(0, seat.row.length / 2).map((zone) => (
+                                    {seat.seats.slice(0, seat.seats.length / 2).map((zone) => (
                                         <SeatZone
                                             key={zone.id}
                                             $zone={zone.state}
-                                            disabled={zone.state === 0 || zone.state === 2}
+                                            $isDisabled={zone.isDisabled}
+                                            disabled={
+                                                zone.state === 0 ||
+                                                zone.state === 2 ||
+                                                zone.isDisabled
+                                            }
                                             className={
-                                                selectedSeats[seat.column]?.includes(zone.id)
+                                                selectedSeats[seat.name]?.includes(
+                                                    Number(zone.name)
+                                                )
                                                     ? "selected"
                                                     : ""
                                             }
-                                            onClick={() =>
-                                                toggleSeatSelection(zone.id, seat.column)
-                                            }
+                                            onClick={() => {
+                                                toggleSeatSelection(
+                                                    Number(zone.name),
+                                                    seat.name,
+                                                    Number(zone.id)
+                                                );
+                                            }}
                                         />
                                     ))}
                                 </SeatRow>
                                 <SeatRow>
-                                    {seat.row.slice(seat.row.length / 2).map((zone) => (
+                                    {seat.seats.slice(seat.seats.length / 2).map((zone) => (
                                         <SeatZone
                                             key={zone.id}
                                             $zone={zone.state}
-                                            disabled={zone.state === 0 || zone.state === 2}
+                                            $isDisabled={zone.isDisabled}
+                                            disabled={
+                                                zone.state === 0 ||
+                                                zone.state === 2 ||
+                                                zone.isDisabled
+                                            }
                                             className={
-                                                selectedSeats[seat.column]?.includes(zone.id)
+                                                selectedSeats[seat.name]?.includes(
+                                                    Number(zone.name)
+                                                )
                                                     ? "selected"
                                                     : ""
                                             }
-                                            onClick={() =>
-                                                toggleSeatSelection(zone.id, seat.column)
-                                            }
+                                            onClick={() => {
+                                                toggleSeatSelection(
+                                                    Number(zone.name),
+                                                    seat.name,
+                                                    Number(zone.id)
+                                                );
+                                            }}
                                         />
                                     ))}
                                 </SeatRow>
@@ -135,7 +151,7 @@ const SeatRow = styled.div`
     gap: 0.4rem;
 `;
 
-const SeatZone = styled.button<{ $zone: number }>`
+const SeatZone = styled.button<{ $zone: number; $isDisabled: boolean }>`
     width: 1.6rem;
     height: 1.6rem;
     border: none;
@@ -149,6 +165,21 @@ const SeatZone = styled.button<{ $zone: number }>`
                 return Colors.black696969;
         }
     }};
+
+    ${(props) =>
+        props.$isDisabled &&
+        css`
+            background: ${() => {
+                switch (props.$zone) {
+                    case 0:
+                        return "transparent";
+                    case 1:
+                        return Colors.green8DBC13;
+                    case 2:
+                        return Colors.black696969;
+                }
+            }};
+        `}
 
     &.selected {
         background: ${Colors.yanoljaPrimaryTransparent};

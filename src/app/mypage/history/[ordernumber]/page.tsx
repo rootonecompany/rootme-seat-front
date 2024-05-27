@@ -4,14 +4,21 @@ import HeaderBackButton from "@/components/header/HeaderBackButton";
 import BasicLayout from "@/components/layout/BasicLayout";
 import HistoryDetailHead from "@/containers/mypage/history/historydetail/HistoryDetailHead";
 import HistoryDetailBody from "@/containers/mypage/history/historydetail/HistoryDetailBody";
+import { getMyHistory } from "@/services/mypageAction";
 
-const HistoryDetailPage: NextPage = () => {
+interface Params {
+    params: { ordernumber: string };
+}
+
+const HistoryDetailPage: NextPage<Params> = async ({ params }) => {
+    const invoice = await getMyHistory(params.ordernumber);
+
     return (
         <>
-            <Header title="예매내역 상세" headerLeft={<HeaderBackButton />} />
+            <Header title="예매내역 상세" headerLeft={<HeaderBackButton returnUrl />} />
             <BasicLayout>
-                <HistoryDetailHead />
-                <HistoryDetailBody />
+                <HistoryDetailHead invoice={invoice} />
+                <HistoryDetailBody invoice={invoice} />
             </BasicLayout>
         </>
     );

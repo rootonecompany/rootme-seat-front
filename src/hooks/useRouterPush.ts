@@ -8,5 +8,11 @@ export default function useRouterPush() {
         });
     };
 
-    return { handleRouterPush };
+    const handleRouterReplace = (path: string) => {
+        router.replace(path, {
+            scroll: false,
+        });
+    };
+
+    return { handleRouterPush, handleRouterReplace };
 }

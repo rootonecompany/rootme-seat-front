@@ -1,26 +1,50 @@
 "use client";
 
-import { useState } from "react";
 import styled from "styled-components";
 import Calendar from "@/components/datepicker/Calendar";
 import ScheduleTimeSelector from "./ScheduleTimeSelector";
+import useRouterPush from "@/hooks/useRouterPush";
 import { EnabledButton } from "@/components/button/Button";
+import { ScheduleState } from "./utils";
+import { Dates } from "@/interface";
 import { Colors } from "@/utils/style/colors";
 
-export default function ScheduleContainer() {
-    const [startDate, setStartDate] = useState<Date | null>(null);
-    const [selectedTime, setSelectedTime] = useState<string>("");
+export default function ScheduleContainer({ dates }: { dates: Dates }) {
+    const { handleRouterPush } = useRouterPush();
+    const {
+        selectedDate,
+        setSelectedDate,
+        renderTimes,
+        setRenderTimes,
+        selectedTime,
+        setSelectedTime,
+    } = ScheduleState();
+    const handleNextSeatPage = () => {
+        handleRouterPush(`/reservation/schedule/${selectedTime}`);
+    };
 
     return (
         <>
-            <Calendar startDate={startDate} setStartDate={setStartDate} />
+            <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setRenderTimes={setRenderTimes}
+                performanceDate={dates}
+                setSelectedTime={setSelectedTime}
+            />
             <ScheduleTimeSelector
-                date={startDate}
+                date={selectedDate}
+                renderTimes={renderTimes}
                 selectedTime={selectedTime}
                 setSelectedTime={setSelectedTime}
             />
             <FixedButton>
-                <EnabledButton disabled={!startDate || !selectedTime}>다음</EnabledButton>
+                <EnabledButton
+                    disabled={!selectedDate || !selectedTime}
+                    onClick={handleNextSeatPage}
+                >
+                    다음
+                </EnabledButton>
             </FixedButton>
         </>
     );

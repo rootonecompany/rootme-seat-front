@@ -12,6 +12,7 @@ export const Colors = {
     blackF7F7F7: "#F7F7F7",
     blackF2F2F2: "#F2F2F2",
     blackFAFAFA: "#FAFAFA",
+    green8DBC13: "#8DBC13",
     yanoljaPrimary: "#FF1978",
     yanoljaPrimaryTransparent: "rgba(255, 25, 120, 0.8)",
     yanoljaSecondary: "#889FEF",

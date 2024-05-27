@@ -18,7 +18,7 @@ export default function SeatStageContainer() {
                 </StageInfo>
                 <StageInfo $stateColor="#CECECE">
                     <div />
-                    <span>선택좌석</span>
+                    <span>선택가능</span>
                 </StageInfo>
                 <StageInfo $stateColor="">
                     <Image
@@ -28,6 +28,10 @@ export default function SeatStageContainer() {
                         alt="선택불가"
                     />
                     <span>선택불가</span>
+                </StageInfo>
+                <StageInfo $stateColor="#8DBC13">
+                    <div />
+                    <span>장애인석</span>
                 </StageInfo>
             </StageInfoContainer>
             <StageContainer>
@@ -48,14 +52,14 @@ const StageInfoContainer = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.8rem;
     padding: 1.1rem 2rem;
-    background: ${Colors.blackF7F7F7};
+    background: ${Colors.black9A9A9A};
 `;
 const StageInfo = styled.div<{ $stateColor: string }>`
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.2rem;
 
     div {
         width: 1.2rem;
@@ -65,7 +69,8 @@ const StageInfo = styled.div<{ $stateColor: string }>`
     span {
         font-size: 1.1rem;
         font-weight: 400;
-        color: ${Colors.black696969};
+        line-height: 1;
+        color: ${Colors.systemWhite};
     }
 `;
 const Stage = styled.div`

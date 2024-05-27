@@ -1,25 +1,26 @@
 "use client";
 
+import styled from "styled-components";
 import SeatStageContainer from "./SeatStageContainer";
-import { SeatData } from "@/utils/data";
 import SeatingChart from "./SeatingChart";
 import SeatReservationPanel from "./SeatReservationPanel";
 import useSeatSelection from "@/hooks/useSeatSelection";
-import styled from "styled-components";
+import { Seats } from "@/interface";
 
-export default function SeatContainer() {
-    const { selectedSeats, toggleSeatSelection, totalSelectedSeats } = useSeatSelection();
-
+export default function SeatContainer({ seats }: { seats: Seats }) {
+    const { selectedSeats, selectedSeatsId, toggleSeatSelection, totalSelectedSeats } =
+        useSeatSelection();
     return (
         <SeatContainerWrapper>
             <SeatStageContainer />
             <SeatingChart
-                data={SeatData}
+                seats={seats}
                 selectedSeats={selectedSeats}
                 toggleSeatSelection={toggleSeatSelection}
             />
             <SeatReservationPanel
                 selectedSeats={selectedSeats}
+                selectedSeatsId={selectedSeatsId}
                 totalSelectedSeats={totalSelectedSeats}
             />
         </SeatContainerWrapper>

@@ -7,41 +7,24 @@ import { pretendard } from "@/utils/style/fonts";
 import { Colors } from "@/utils/style/colors";
 import { EnabledButton } from "@/components/button/Button";
 import { createCookie } from "@/utils/action";
+import { getOrder } from "@/services/reservationAction";
 
 interface UserInputFormData {
     orderNumber: string;
 }
 
-interface Props {
-    handleReservationCheck: () => Promise<any>;
-}
-
-type ReservationCheck = {
-    result: boolean;
-    date: string;
-    orderNum: string;
-    seats: string[];
-    theaterLocation: string;
-    theaterName: string;
-    theaterTitle: string | null;
-    time: string;
-    userName: string;
-    userPhone: string | null;
-};
-
-export default function ReservationContainer({ handleReservationCheck }: Props) {
+export default function ReservationContainer() {
     const { handleRouterPush } = useRouterPush();
     const { inputValue, handleInputValue } = useHandleInput<UserInputFormData>();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            const res: ReservationCheck = await handleReservationCheck();
-            await createCookie("orderNumber", inputValue.orderNumber);
-            res.result ? null : handleRouterPush("/reservation/option");
-        } catch (error) {
-            console.error(error);
-        }
+
+        // const val = await getOrder(inputValue.orderNumber);
+        // console.log(val);
+
+        await createCookie("orderNumber", inputValue.orderNumber);
+        handleRouterPush("/reservation/option");
     };
 
     return (

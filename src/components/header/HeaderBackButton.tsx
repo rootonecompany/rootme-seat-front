@@ -3,11 +3,22 @@
 import Image from "next/image";
 import styled from "styled-components";
 import useGoBack from "@/hooks/useGoBack";
+import useRouterPush from "@/hooks/useRouterPush";
 
-export default function HeaderBackButton() {
+interface HeaderBackButtonProps {
+    returnUrl?: boolean;
+}
+
+export default function HeaderBackButton({ returnUrl = false }: HeaderBackButtonProps) {
+    const { handleRouterPush } = useRouterPush();
     const goBack = useGoBack();
+
     return (
-        <IconButton onClick={goBack}>
+        <IconButton
+            onClick={() => {
+                returnUrl ? handleRouterPush("/reservation") : goBack();
+            }}
+        >
             <Image
                 src={"/images/btns/btn_prev.svg"}
                 width={24}
