@@ -47,7 +47,7 @@ export default function Calendar({
 
     return (
         <CalendarContainer>
-            {performanceDate && performanceDate.dates.length > 0 ? (
+            {performanceDate && performanceDate.dates && performanceDate.dates.length > 0 ? (
                 <ReactDatePicker
                     locale={ko}
                     weekDayClassName={(date) =>
