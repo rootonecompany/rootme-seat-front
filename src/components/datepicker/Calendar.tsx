@@ -54,14 +54,16 @@ export default function Calendar({
                         ? "react-datepicker__day--weekend"
                         : null
                 }
-                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-                    <CalendarHeader
-                        date={date}
-                        decreaseMonth={decreaseMonth}
-                        increaseMonth={increaseMonth}
-                        performanceDate={performanceDate && performanceDate}
-                    />
-                )}
+                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) =>
+                    performanceDate && (
+                        <CalendarHeader
+                            date={date}
+                            decreaseMonth={decreaseMonth}
+                            increaseMonth={increaseMonth}
+                            performanceDate={performanceDate}
+                        />
+                    )
+                }
                 selected={selectedDate}
                 includeDates={
                     performanceDate
