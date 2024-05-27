@@ -64,10 +64,11 @@ export default function Calendar({
                 )}
                 selected={selectedDate}
                 includeDates={
-                    performanceDate &&
-                    performanceDate.dates.map((date) =>
-                        toDate(date.date, { timeZone: "Asia/Seoul" })
-                    )
+                    performanceDate
+                        ? performanceDate.dates.map((date) =>
+                              toDate(date.date, { timeZone: "Asia/Seoul" })
+                          )
+                        : undefined
                 }
                 onChange={(date) => {
                     handleSelectDate(date as Date);
