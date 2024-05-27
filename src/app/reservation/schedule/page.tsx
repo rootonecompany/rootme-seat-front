@@ -8,7 +8,7 @@ import { getDates } from "@/services/reservationAction";
 const ScheduleSelectionPage: NextPage = async () => {
     const dates = await getDates("2", "0000001");
 
-    if (!dates) return <div>데이터가 없습니다.</div>;
+    if (!dates) return null;
 
     return (
         <>
