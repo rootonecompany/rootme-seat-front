@@ -59,13 +59,16 @@ export default function Calendar({
                         date={date}
                         decreaseMonth={decreaseMonth}
                         increaseMonth={increaseMonth}
-                        performanceDate={performanceDate}
+                        performanceDate={performanceDate && performanceDate}
                     />
                 )}
                 selected={selectedDate}
-                includeDates={performanceDate.dates.map((date) =>
-                    toDate(date.date, { timeZone: "Asia/Seoul" })
-                )}
+                includeDates={
+                    performanceDate &&
+                    performanceDate.dates.map((date) =>
+                        toDate(date.date, { timeZone: "Asia/Seoul" })
+                    )
+                }
                 onChange={(date) => {
                     handleSelectDate(date as Date);
                 }}
