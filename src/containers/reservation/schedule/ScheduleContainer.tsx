@@ -25,33 +25,27 @@ export default function ScheduleContainer({ dates }: { dates: Dates }) {
 
     return (
         <>
-            {dates ? (
-                <>
-                    <Calendar
-                        selectedDate={selectedDate}
-                        setSelectedDate={setSelectedDate}
-                        setRenderTimes={setRenderTimes}
-                        performanceDate={dates}
-                        setSelectedTime={setSelectedTime}
-                    />
-                    <ScheduleTimeSelector
-                        date={selectedDate}
-                        renderTimes={renderTimes}
-                        selectedTime={selectedTime}
-                        setSelectedTime={setSelectedTime}
-                    />
-                    <FixedButton>
-                        <EnabledButton
-                            disabled={!selectedDate || !selectedTime}
-                            onClick={handleNextSeatPage}
-                        >
-                            다음
-                        </EnabledButton>
-                    </FixedButton>
-                </>
-            ) : (
-                <div>Internal Server Error</div>
-            )}
+            <Calendar
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate}
+                setRenderTimes={setRenderTimes}
+                performanceDate={dates}
+                setSelectedTime={setSelectedTime}
+            />
+            <ScheduleTimeSelector
+                date={selectedDate}
+                renderTimes={renderTimes}
+                selectedTime={selectedTime}
+                setSelectedTime={setSelectedTime}
+            />
+            <FixedButton>
+                <EnabledButton
+                    disabled={!selectedDate || !selectedTime}
+                    onClick={handleNextSeatPage}
+                >
+                    다음
+                </EnabledButton>
+            </FixedButton>
         </>
     );
 }
