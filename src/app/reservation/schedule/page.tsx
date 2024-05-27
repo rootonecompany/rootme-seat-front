@@ -3,29 +3,10 @@ import Header from "@/components/header/Header";
 import HeaderBackButton from "@/components/header/HeaderBackButton";
 import BasicLayout from "@/components/layout/BasicLayout";
 import ScheduleContainer from "@/containers/reservation/schedule/ScheduleContainer";
-import { CustomFetch } from "@/hooks/useCustomFetch";
-import { Dates } from "@/interface";
-
-async function getDates(orderNum: string, theaterCode: string) {
-    const result = await CustomFetch<Dates>(
-        "/api/v1/theater/dates",
-        {
-            params: {
-                orderNum,
-                theaterCode,
-            },
-        },
-        "coleslaw"
-    );
-    return result;
-}
+import { getDates } from "@/services/reservationAction";
 
 const ScheduleSelectionPage: NextPage = async () => {
     const dates = await getDates("2", "0000001");
-
-    if (!dates) {
-        return null;
-    }
 
     return (
         <>
@@ -34,7 +15,7 @@ const ScheduleSelectionPage: NextPage = async () => {
                 headerLeft={<HeaderBackButton />}
             />
             <BasicLayout>
-                <ScheduleContainer dates={dates} />
+                {!dates ? <span>없어</span> : <ScheduleContainer dates={dates} />}
             </BasicLayout>
         </>
     );
