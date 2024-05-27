@@ -25,13 +25,13 @@ export default function ScheduleContainer({ dates }: { dates: Dates }) {
 
     return (
         <>
-            <Calendar
+            {/* <Calendar
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
                 setRenderTimes={setRenderTimes}
                 performanceDate={dates}
                 setSelectedTime={setSelectedTime}
-            />
+            /> */}
             <ScheduleTimeSelector
                 date={selectedDate}
                 renderTimes={renderTimes}
