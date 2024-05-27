@@ -8,10 +8,6 @@ import { getDates } from "@/services/reservationAction";
 const ScheduleSelectionPage: NextPage = async () => {
     const dates = await getDates("2", "0000001");
 
-    if (!dates) {
-        return undefined;
-    }
-
     return (
         <>
             <Header
