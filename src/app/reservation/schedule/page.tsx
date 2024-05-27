@@ -8,6 +8,10 @@ import { getDates } from "@/services/reservationAction";
 const ScheduleSelectionPage: NextPage = async () => {
     const dates = await getDates("2", "0000001");
 
+    if (!dates) {
+        return undefined;
+    }
+
     return (
         <>
             <Header
@@ -15,7 +19,7 @@ const ScheduleSelectionPage: NextPage = async () => {
                 headerLeft={<HeaderBackButton />}
             />
             <BasicLayout>
-                {!dates ? <span>없어</span> : <ScheduleContainer dates={dates} />}
+                <ScheduleContainer dates={dates} />
             </BasicLayout>
         </>
     );
