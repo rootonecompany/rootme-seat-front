@@ -9,19 +9,19 @@ export async function getOrder(onderNumber: string) {
     return result;
 }
 
-export async function getDates(orderNum: string, theaterCode: string) {
-    const result = await CustomFetch<Dates>(
-        "/api/v1/theater/dates",
-        {
-            params: {
-                orderNum,
-                theaterCode,
-            },
-        },
-        "coleslaw"
-    );
-    return result;
-}
+// export async function getDates(orderNum: string, theaterCode: string) {
+//     const result = await CustomFetch<Dates>(
+//         "/api/v1/theater/dates",
+//         {
+//             params: {
+//                 orderNum,
+//                 theaterCode,
+//             },
+//         },
+//         "coleslaw"
+//     );
+//     return result;
+// }
 
 export async function getTimes(dateId: string) {
     const result = await CustomFetch<Times[]>(

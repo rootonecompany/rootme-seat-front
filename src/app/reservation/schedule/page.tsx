@@ -3,12 +3,29 @@ import Header from "@/components/header/Header";
 import HeaderBackButton from "@/components/header/HeaderBackButton";
 import BasicLayout from "@/components/layout/BasicLayout";
 import ScheduleContainer from "@/containers/reservation/schedule/ScheduleContainer";
-import { getDates } from "@/services/reservationAction";
+import { CustomFetch } from "@/hooks/useCustomFetch";
+import { Dates } from "@/interface";
+
+async function getDates(orderNum: string, theaterCode: string) {
+    const result = await CustomFetch<Dates>(
+        "/api/v1/theater/dates",
+        {
+            params: {
+                orderNum,
+                theaterCode,
+            },
+        },
+        "coleslaw"
+    );
+    return result;
+}
 
 const ScheduleSelectionPage: NextPage = async () => {
     const dates = await getDates("2", "0000001");
 
-    if (!dates) return null;
+    if (!dates) {
+        return null;
+    }
 
     return (
         <>
