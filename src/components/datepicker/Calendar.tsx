@@ -31,9 +31,9 @@ export default function Calendar({
         if (hasMycookie) {
             try {
                 const formattedDate = formatISO(date as Date).slice(0, 10);
-                const fetchDate = performanceDate.dates.find(
-                    (performance) => performance.date === formattedDate
-                );
+                const fetchDate =
+                    performanceDate.dates &&
+                    performanceDate.dates.find((performance) => performance.date === formattedDate);
                 const result = fetchDate && (await getTimes(fetchDate.id));
 
                 setSelectedDate(date);
