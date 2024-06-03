@@ -21,11 +21,28 @@ export default function HistoryDetailBody({ invoice }: { invoice: Invoice }) {
                     </li>
                     <li>
                         <strong>선택한 좌석</strong>
-                        <span>{invoice.seats.join(", ")}</span>
+                        <div>
+                            {invoice.seats.map((seat, index) => (
+                                <span key={index}>
+                                    {seat}
+                                    {index !== invoice.seats.length - 1 && ", "}
+                                </span>
+                            ))}
+                        </div>
                     </li>
                     <li>
                         <strong>공연날짜</strong>
-                        <span>{invoice.date.replaceAll("-", ".")}</span>
+                        <div>
+                            {invoice.date
+                                .replaceAll("-", ".")
+                                .split(",")
+                                .map((date, index) => (
+                                    <span key={index}>
+                                        {date}
+                                        {index !== invoice.date.split(",").length - 1 && ","}
+                                    </span>
+                                ))}
+                        </div>
                     </li>
                     <li>
                         <strong>장소</strong>
@@ -82,6 +99,12 @@ const HistoryDetailBodyInner = styled.div`
                 font-size: 1.4rem;
                 font-weight: 400;
                 color: ${Colors.black696969};
+            }
+
+            div {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3rem 0.5rem;
             }
         }
     }
