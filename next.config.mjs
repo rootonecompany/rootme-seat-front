@@ -31,12 +31,12 @@ const nextConfig = {
     async rewrites() {
         return [
             {
-                source: "/:path*",
-                destination: `${TBRIDGE_API_URL}/:path*`,
-            },
-            {
                 source: "/api/v1/:path*",
                 destination: `${COLESLAW_API_URL}/:path*`,
+            },
+            {
+                source: "/:path*",
+                destination: `${TBRIDGE_API_URL}/:path*`,
             },
         ];
     },
