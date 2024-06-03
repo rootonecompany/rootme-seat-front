@@ -21,7 +21,7 @@ export default function Test() {
             //     "tbridge"
             // );
 
-            const result = await fetch(`https://yadev.t-bridge.io/userorder/${orderId}`, {
+            const result = await fetch(`https://yadev.t-bridge.io/useorder/${orderId}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
