@@ -68,3 +68,23 @@ export async function postReservation(orderNum: string, seatIds: number[]) {
 
     return result;
 }
+
+export const handleUseOrder = async (orderId: string) => {
+    try {
+        const result = await CustomFetch(
+            `/useorder/${orderId}`,
+            {
+                method: "POST",
+                headers: {
+                    Authorization: "Bearer e10adc3949ba59abbe56e057f20f883e",
+                },
+                credentials: "include",
+            },
+            "tbridge"
+        );
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.warn(error);
+    }
+};

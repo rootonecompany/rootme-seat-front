@@ -17,8 +17,6 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    console.log(process.env.COLESLAW_API, process.env.TBRIDGE_API);
-
     return (
         <html lang="ko">
             <body className={pretendard.className}>
