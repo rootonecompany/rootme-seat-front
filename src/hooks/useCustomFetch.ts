@@ -9,6 +9,7 @@ const tbridgeUrl =
         : process.env.TBRIDGE_API;
 
 const defaultHeaders = {
+    Accept: "application/json",
     "Content-Type": "application/json",
 };
 
