@@ -10,23 +10,17 @@ const accessToken =
 export default function Test() {
     const handleUseOrder = async (orderId: string) => {
         try {
-            // const result = await CustomFetch(
-            //     `/useorder/${orderId}`,
-            //     {
-            //         headers: {
-            //             Authorization: `Bearer ${accessToken}`,
-            //         },
-            //         cache: "no-cache",
-            //     },
-            //     "tbridge"
-            // );
-
-            const result = await fetch(`https://yadev.t-bridge.io/useorder/${orderId}`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
+            const result = await CustomFetch(
+                `/useorder/${orderId}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                    credentials: "include",
                 },
-            });
+                "tbridge"
+            );
 
             return result;
         } catch (error) {
