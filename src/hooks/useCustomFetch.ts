@@ -74,8 +74,10 @@ export const CustomFetch = async <T>(
         const fetchUrl = fetches === "coleslaw" ? coleslawUrl : tbridgeUrl;
         const CustomUrl = buildQueryString(url, options.params);
         const processedOptions = await RequestInterceptor(`${fetchUrl}${CustomUrl}`, options);
-        const response = await fetch(`${fetchUrl}${CustomUrl}`, processedOptions);
 
+        console.log(fetchUrl);
+
+        const response = await fetch(`${fetchUrl}${CustomUrl}`, processedOptions);
         // if (!response.ok) {
         //     throw new CustomFetchError(response.status, response.statusText);
         // }
