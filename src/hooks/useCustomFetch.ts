@@ -9,7 +9,6 @@ const tbridgeUrl =
         : process.env.TBRIDGE_API;
 
 const defaultHeaders = {
-    Accept: "application/json",
     "Content-Type": "application/json",
 };
 
@@ -35,37 +34,6 @@ const ResponseInterceptor = async (response: Response): Promise<Response> => {
     return response;
 };
 
-// class CustomFetchError extends Error {
-//     error: {
-//         status: number;
-//         message: string;
-//     };
-
-//     constructor(status: number, message: string) {
-//         super(message);
-//         this.error = {
-//             status,
-//             message,
-//         };
-//     }
-
-//     handleReturnError(): ErrorResponse {
-//         return {
-//             error: {
-//                 status: this.error.status,
-//                 message: this.error.message,
-//             },
-//         };
-//     }
-// }
-
-// export interface ErrorResponse {
-//     error: {
-//         status: number;
-//         message: string;
-//     };
-// }
-
 export const CustomFetch = async <T>(
     url: string,
     options: CustomRequestInit = {},
@@ -75,30 +43,13 @@ export const CustomFetch = async <T>(
         const fetchUrl = fetches === "coleslaw" ? coleslawUrl : tbridgeUrl;
         const CustomUrl = buildQueryString(url, options.params);
         const processedOptions = await RequestInterceptor(`${fetchUrl}${CustomUrl}`, options);
-
-        alert(`${tbridgeUrl}, ${coleslawUrl}`);
-
         const response = await fetch(`${fetchUrl}${CustomUrl}`, processedOptions);
-        // if (!response.ok) {
-        //     throw new CustomFetchError(response.status, response.statusText);
-        // }
-
         const processedResponse = await ResponseInterceptor(response);
         const data = await processedResponse.json();
 
         return data;
     } catch (error: unknown) {
         throw error;
-        // if (error instanceof CustomFetchError) {
-        //     return error.handleReturnError();
-        // }
-
-        // return {
-        //     error: {
-        //         status: 500,
-        //         message: "Internal Server Error",
-        //     },
-        // };
     }
 };
 
