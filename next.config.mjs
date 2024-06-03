@@ -29,18 +29,16 @@ const nextConfig = {
     },
 
     async rewrites() {
-        return {
-            fallback: [
-                {
-                    source: "/api/v1/:path*",
-                    destination: `${COLESLAW_API_URL}/:path*`,
-                },
-                {
-                    source: "/:path*",
-                    destination: `${TBRIDGE_API_URL}/:path*`,
-                },
-            ],
-        };
+        return [
+            {
+                source: "/api/v1/:path*",
+                destination: `${COLESLAW_API_URL}/:path*`,
+            },
+            {
+                source: "/:path*",
+                destination: `${TBRIDGE_API_URL}/:path*`,
+            },
+        ];
     },
 };
 
