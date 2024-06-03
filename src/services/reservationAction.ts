@@ -82,7 +82,7 @@ export const handleUseOrder = async (orderId: string) => {
             },
             "tbridge"
         );
-        console.log(result);
+
         return result;
     } catch (error) {
         console.warn(error);

@@ -1,8 +1,3 @@
-const COLESLAW_API_URL =
-    process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_COLESLAW_API
-        : process.env.COLESLAW_API;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     compiler: {
@@ -21,15 +16,6 @@ const nextConfig = {
         fetches: {
             fullUrl: true,
         },
-    },
-
-    async rewrites() {
-        return [
-            {
-                source: "/api/v1/:path*",
-                destination: `${COLESLAW_API_URL}/:path*`,
-            },
-        ];
     },
 };
 
