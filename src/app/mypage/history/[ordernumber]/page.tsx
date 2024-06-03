@@ -12,7 +12,7 @@ interface Params {
 
 const HistoryDetailPage: NextPage<Params> = async ({ params }) => {
     const invoice = await getMyHistory(params.ordernumber);
-
+    console.log(invoice);
     return (
         <>
             <Header title="예매내역 상세" headerLeft={<HeaderBackButton returnUrl />} />

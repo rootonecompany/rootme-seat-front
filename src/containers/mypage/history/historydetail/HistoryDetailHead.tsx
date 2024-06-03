@@ -10,10 +10,12 @@ import { removeCookie } from "@/utils/action";
 import { Invoice } from "@/interface";
 
 export default function HistoryDetailHead({ invoice }: { invoice: Invoice }) {
-    const time = invoice.time.replace(/(\d{2}):(\d{2})/, function (match, p1, p2) {
-        return `${parseInt(p1) < 12 ? "오전" : "오후"} ${p1}:${p2}`;
-    });
-
+    const time =
+        invoice.time &&
+        invoice.time.replace(/(\d{2}):(\d{2})/, function (match, p1, p2) {
+            return `${parseInt(p1) < 12 ? "오전" : "오후"} ${p1}:${p2}`;
+        });
+    console.log(time);
     useEffect(() => {
         removeCookie("orderNumber");
     }, []);
