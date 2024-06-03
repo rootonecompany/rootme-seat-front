@@ -76,7 +76,7 @@ export const CustomFetch = async <T>(
         const CustomUrl = buildQueryString(url, options.params);
         const processedOptions = await RequestInterceptor(`${fetchUrl}${CustomUrl}`, options);
 
-        console.log(fetchUrl);
+        console.log(tbridgeUrl);
 
         const response = await fetch(`${fetchUrl}${CustomUrl}`, processedOptions);
         // if (!response.ok) {

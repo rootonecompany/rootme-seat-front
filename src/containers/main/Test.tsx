@@ -31,8 +31,8 @@ export default function Test() {
     return (
         <div>
             <button
-                onClick={() => {
-                    handleUseOrder("O5C11A701F33");
+                onClick={async () => {
+                    await handleUseOrder("O5C11A701F33");
                 }}
             >
                 사용 테스트
