@@ -4,7 +4,7 @@ import { Dates } from "@/interface";
 import { Colors } from "@/utils/style/colors";
 import Image from "next/image";
 import styled from "styled-components";
-import { toDate, format } from "date-fns-tz";
+import { toDate } from "date-fns-tz";
 
 interface CalendarHeaderProps {
     date: Date;
