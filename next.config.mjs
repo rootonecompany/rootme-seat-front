@@ -1,7 +1,11 @@
-const API_URL =
+const COLESLAW_API_URL =
     process.env.NODE_ENV === "development"
         ? process.env.NEXT_PUBLIC_COLESLAW_API
         : process.env.COLESLAW_API;
+const TBRIDGE_API_URL =
+    process.env.NODE_ENV === "development"
+        ? process.env.NEXT_PUBLIC_TBRIDGE_API
+        : process.env.TBRIDGE_API;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -28,7 +32,11 @@ const nextConfig = {
         return [
             {
                 source: "/api/v1/:path*",
-                destination: `${API_URL}/:path*`,
+                destination: `${COLESLAW_API_URL}/:path*`,
+            },
+            {
+                source: "/:path*",
+                destination: `${TBRIDGE_API_URL}/:path*`,
             },
         ];
     },
