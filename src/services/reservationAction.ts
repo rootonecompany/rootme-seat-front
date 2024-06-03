@@ -76,7 +76,7 @@ export const handleUseOrder = async (orderId: string) => {
             {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer e10adc3949ba59abbe56e057f20f883e",
+                    Authorization: "Bearer 339feaed11a6eeabe1e5e0eb1695f498",
                 },
                 credentials: "include",
             },
