@@ -16,6 +16,7 @@ export default function Test() {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
+                    cache: "no-cache",
                 },
                 "tbridge"
             );
