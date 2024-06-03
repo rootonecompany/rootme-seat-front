@@ -15,7 +15,7 @@ export default function HistoryDetailHead({ invoice }: { invoice: Invoice }) {
         invoice.time.replace(/(\d{2}):(\d{2})/, function (match, p1, p2) {
             return `${parseInt(p1) < 12 ? "오전" : "오후"} ${p1}:${p2}`;
         });
-    console.log(time);
+
     useEffect(() => {
         removeCookie("orderNumber");
     }, []);
@@ -29,8 +29,8 @@ export default function HistoryDetailHead({ invoice }: { invoice: Invoice }) {
                         <strong>뮤지컬 〈달 샤베트〉 - 서울숲 </strong>
                         <span className="location">{invoice.theaterName}</span>
                         <span className="date">
-                            {invoice.date.replaceAll("-", ".")} · {time} ·{" "}
-                            {`${invoice.seats.length} 명`}
+                            {invoice.date && invoice.date.replaceAll("-", ".")} · {time} ·{" "}
+                            {`${invoice.seats && invoice.seats.length} 명`}
                         </span>
                     </div>
                 </HistoryDetailProductInfo>
