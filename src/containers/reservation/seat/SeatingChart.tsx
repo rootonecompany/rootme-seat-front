@@ -3,9 +3,10 @@
 import styled, { css } from "styled-components";
 import { Seats } from "@/interface";
 import { Colors } from "@/utils/style/colors";
+import TestError from "@/components/TestError";
 
 interface SeatingChartProps {
-    seats: Seats;
+    seats: Seats | undefined;
     selectedSeats: { [key: string]: number[] };
     toggleSeatSelection: (row: number, column: string, seatId: number) => void;
 }
@@ -19,75 +20,76 @@ export default function SeatingChart({
         <>
             <SeatingChartContainer>
                 <SeatColumn>
-                    {seats.rows.map((seat) => (
-                        <span key={seat.id}>{seat.name}</span>
-                    ))}
+                    {seats && seats.rows.map((seat) => <span key={seat.id}>{seat.name}</span>)}
                 </SeatColumn>
                 <div className="scroll">
                     <SeatRowContainer>
-                        {seats.rows.map((seat) => (
-                            <SeatRowInner key={seat.id}>
-                                <SeatRow>
-                                    {seat.seats.slice(0, seat.seats.length / 2).map((zone) => (
-                                        <SeatZone
-                                            key={zone.id}
-                                            $zone={zone.state}
-                                            $isDisabled={zone.isDisabled}
-                                            disabled={
-                                                zone.state === 0 ||
-                                                zone.state === 2 ||
-                                                zone.isDisabled
-                                            }
-                                            className={
-                                                selectedSeats[seat.name]?.includes(
-                                                    Number(zone.name)
-                                                )
-                                                    ? "selected"
-                                                    : ""
-                                            }
-                                            onClick={() => {
-                                                toggleSeatSelection(
-                                                    Number(zone.name),
-                                                    seat.name,
-                                                    Number(zone.id)
-                                                );
-                                            }}
-                                        />
-                                    ))}
-                                </SeatRow>
-                                <SeatRow>
-                                    {seat.seats.slice(seat.seats.length / 2).map((zone) => (
-                                        <SeatZone
-                                            key={zone.id}
-                                            $zone={zone.state}
-                                            $isDisabled={zone.isDisabled}
-                                            disabled={
-                                                zone.state === 0 ||
-                                                zone.state === 2 ||
-                                                zone.isDisabled
-                                            }
-                                            className={
-                                                selectedSeats[seat.name]?.includes(
-                                                    Number(zone.name)
-                                                )
-                                                    ? "selected"
-                                                    : ""
-                                            }
-                                            onClick={() => {
-                                                toggleSeatSelection(
-                                                    Number(zone.name),
-                                                    seat.name,
-                                                    Number(zone.id)
-                                                );
-                                            }}
-                                        />
-                                    ))}
-                                </SeatRow>
-                            </SeatRowInner>
-                        ))}
+                        {seats &&
+                            seats.rows.map((seat) => (
+                                <SeatRowInner key={seat.id}>
+                                    <SeatRow>
+                                        {seat.seats.slice(0, seat.seats.length / 2).map((zone) => (
+                                            <SeatZone
+                                                key={zone.id}
+                                                $zone={zone.state}
+                                                $isDisabled={zone.isDisabled}
+                                                disabled={
+                                                    zone.state === 0 ||
+                                                    zone.state === 2 ||
+                                                    zone.isDisabled
+                                                }
+                                                className={
+                                                    selectedSeats[seat.name]?.includes(
+                                                        Number(zone.name)
+                                                    )
+                                                        ? "selected"
+                                                        : ""
+                                                }
+                                                onClick={() => {
+                                                    toggleSeatSelection(
+                                                        Number(zone.name),
+                                                        seat.name,
+                                                        Number(zone.id)
+                                                    );
+                                                }}
+                                            />
+                                        ))}
+                                    </SeatRow>
+                                    <SeatRow>
+                                        {seat.seats.slice(seat.seats.length / 2).map((zone) => (
+                                            <SeatZone
+                                                key={zone.id}
+                                                $zone={zone.state}
+                                                $isDisabled={zone.isDisabled}
+                                                disabled={
+                                                    zone.state === 0 ||
+                                                    zone.state === 2 ||
+                                                    zone.isDisabled
+                                                }
+                                                className={
+                                                    selectedSeats[seat.name]?.includes(
+                                                        Number(zone.name)
+                                                    )
+                                                        ? "selected"
+                                                        : ""
+                                                }
+                                                onClick={() => {
+                                                    toggleSeatSelection(
+                                                        Number(zone.name),
+                                                        seat.name,
+                                                        Number(zone.id)
+                                                    );
+                                                }}
+                                            />
+                                        ))}
+                                    </SeatRow>
+                                </SeatRowInner>
+                            ))}
                     </SeatRowContainer>
                 </div>
             </SeatingChartContainer>
+
+            {!seats && <TestError />}
         </>
     );
 }

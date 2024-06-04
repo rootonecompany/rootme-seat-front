@@ -1,5 +1,3 @@
-"use server";
-
 import { CustomFetch } from "@/hooks/useCustomFetch";
 import { Dates, Seats, Times } from "@/interface";
 
@@ -82,7 +80,7 @@ export const handleUseOrder = async (orderId: string) => {
             },
             "tbridge"
         );
-
+        console.log(result);
         return result;
     } catch (error) {
         console.warn(error);

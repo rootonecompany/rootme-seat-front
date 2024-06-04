@@ -10,7 +10,7 @@ interface CalendarHeaderProps {
     date: Date;
     decreaseMonth: () => void;
     increaseMonth: () => void;
-    performanceDate: Dates;
+    performanceDate: Dates | null;
 }
 
 export default function CalendarHeader({
@@ -19,22 +19,26 @@ export default function CalendarHeader({
     increaseMonth,
     performanceDate,
 }: CalendarHeaderProps) {
-    const firstPerformanceDate = toDate(new Date(performanceDate.dates[0].date), {
-        timeZone: "Asia/Seoul",
-    });
-    const lastPerformanceDate = toDate(
-        new Date(performanceDate.dates[performanceDate.dates.length - 1].date),
-        {
+    const firstPerformanceDate =
+        performanceDate &&
+        toDate(new Date(performanceDate.dates[0].date), {
             timeZone: "Asia/Seoul",
-        }
-    );
+        });
+    const lastPerformanceDate =
+        performanceDate &&
+        toDate(new Date(performanceDate.dates[performanceDate.dates.length - 1].date), {
+            timeZone: "Asia/Seoul",
+        });
+
     return (
         <CalendarHeaderContainer>
             <button
                 onClick={decreaseMonth}
                 disabled={
-                    date.getFullYear() === new Date().getFullYear() &&
-                    firstPerformanceDate.getMonth() === date.getMonth()
+                    firstPerformanceDate
+                        ? date.getFullYear() === new Date().getFullYear() &&
+                          firstPerformanceDate.getMonth() === date.getMonth()
+                        : false
                 }
             >
                 <Image
@@ -52,8 +56,10 @@ export default function CalendarHeader({
             <button
                 onClick={increaseMonth}
                 disabled={
-                    date.getFullYear() === new Date().getFullYear() &&
-                    lastPerformanceDate.getMonth() === date.getMonth()
+                    lastPerformanceDate
+                        ? date.getFullYear() === new Date().getFullYear() &&
+                          lastPerformanceDate.getMonth() === date.getMonth()
+                        : false
                 }
             >
                 <Image

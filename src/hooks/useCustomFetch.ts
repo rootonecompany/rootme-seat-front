@@ -1,3 +1,5 @@
+import { Result } from "@/interface";
+
 const coleslawUrl =
     process.env.NODE_ENV === "development"
         ? process.env.NEXT_PUBLIC_COLESLAW_API
@@ -9,8 +11,8 @@ const tbridgeUrl =
         : process.env.TBRIDGE_API;
 
 const defaultHeaders = {
-    Accept: "application/json",
     "Content-Type": "application/json",
+    Accept: "application/json",
 };
 
 interface CustomRequestInit extends RequestInit {
@@ -39,18 +41,32 @@ export const CustomFetch = async <T>(
     url: string,
     options: CustomRequestInit = {},
     fetches: "coleslaw" | "tbridge"
-): Promise<T> => {
+): Promise<Result<T>> => {
     try {
         const fetchUrl = fetches === "coleslaw" ? coleslawUrl : tbridgeUrl;
         const CustomUrl = buildQueryString(url, options.params);
         const processedOptions = await RequestInterceptor(`${fetchUrl}${CustomUrl}`, options);
         const response = await fetch(`${fetchUrl}${CustomUrl}`, processedOptions);
+
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+
         const processedResponse = await ResponseInterceptor(response);
         const data = await processedResponse.json();
 
-        return data;
+        return {
+            success: true,
+            data,
+        };
     } catch (error: unknown) {
-        throw error;
+        return {
+            success: false,
+            error: {
+                name: (error as Error).name,
+                message: (error as Error).message,
+            },
+        };
     }
 };
 

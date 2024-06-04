@@ -6,10 +6,10 @@ import ScheduleTimeSelector from "./ScheduleTimeSelector";
 import useRouterPush from "@/hooks/useRouterPush";
 import { EnabledButton } from "@/components/button/Button";
 import { ScheduleState } from "./utils";
-import { Dates } from "@/interface";
+import { Dates, Result } from "@/interface";
 import { Colors } from "@/utils/style/colors";
 
-export default function ScheduleContainer({ dates }: { dates: Dates }) {
+export default function ScheduleContainer({ dates }: { dates: Result<Dates> }) {
     const { handleRouterPush } = useRouterPush();
     const {
         selectedDate,
@@ -29,12 +29,13 @@ export default function ScheduleContainer({ dates }: { dates: Dates }) {
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
                 setRenderTimes={setRenderTimes}
-                performanceDate={dates}
+                performanceDate={dates.data}
                 setSelectedTime={setSelectedTime}
             />
+
             <ScheduleTimeSelector
                 date={selectedDate}
-                renderTimes={renderTimes}
+                renderTimes={renderTimes.data}
                 selectedTime={selectedTime}
                 setSelectedTime={setSelectedTime}
             />

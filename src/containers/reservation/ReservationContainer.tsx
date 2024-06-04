@@ -7,7 +7,6 @@ import { pretendard } from "@/utils/style/fonts";
 import { Colors } from "@/utils/style/colors";
 import { EnabledButton } from "@/components/button/Button";
 import { createCookie } from "@/utils/action";
-import { getOrder } from "@/services/reservationAction";
 
 interface UserInputFormData {
     orderNumber: string;
@@ -19,9 +18,6 @@ export default function ReservationContainer() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        // const val = await getOrder(inputValue.orderNumber);
-        // console.log(val);
 
         await createCookie("orderNumber", inputValue.orderNumber);
         handleRouterPush("/reservation/option");

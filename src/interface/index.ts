@@ -1,3 +1,12 @@
+export interface Result<T> {
+    success: boolean;
+    data?: T;
+    error?: {
+        name: string;
+        message: string;
+    };
+}
+
 export interface KeyValueData {
     [key: string]: string;
 }

@@ -5,17 +5,18 @@ import ReactDatePicker from "react-datepicker";
 import CalendarHeader from "./CalendarHeader";
 import { ko } from "date-fns/locale";
 import { Colors } from "@/utils/style/colors";
-import { Dates, Times } from "@/interface";
+import { Dates, Result, Times } from "@/interface";
 import { formatISO } from "date-fns";
 import { toDate } from "date-fns-tz";
 import { getTimes } from "@/services/reservationAction";
 import { hasCookie } from "@/utils/action";
+import TestError from "@/components/TestError";
 
 interface CalendarProps {
     selectedDate: Date | null;
     setSelectedDate: (date: Date | null) => void;
-    setRenderTimes: React.Dispatch<React.SetStateAction<Times[] | undefined>>;
-    performanceDate: Dates;
+    setRenderTimes: React.Dispatch<React.SetStateAction<Result<Times[]>>>;
+    performanceDate: Dates | undefined;
     setSelectedTime: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
@@ -28,17 +29,16 @@ export default function Calendar({
 }: CalendarProps) {
     const handleSelectDate = async (date: Date) => {
         const hasMycookie = await hasCookie("orderNumber", "/reservation");
-        if (hasMycookie) {
+        if (hasMycookie && performanceDate) {
             try {
                 const formattedDate = formatISO(date as Date).slice(0, 10);
                 const fetchDate = performanceDate.dates.find(
                     (performance) => performance.date === formattedDate
                 );
                 const result = fetchDate && (await getTimes(fetchDate.id));
-
                 setSelectedDate(date);
                 setSelectedTime(undefined);
-                return setRenderTimes(result);
+                return result && setRenderTimes(result);
             } catch (error) {
                 throw error;
             }
@@ -46,36 +46,39 @@ export default function Calendar({
     };
 
     return (
-        <CalendarContainer>
-            {/* {performanceDate.dates && performanceDate.dates.length > 0 ? ( */}
-            <ReactDatePicker
-                locale={ko}
-                weekDayClassName={(date) =>
-                    date.getDay() === 0 || date.getDay() === 6
-                        ? "react-datepicker__day--weekend"
-                        : null
-                }
-                renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
-                    <CalendarHeader
-                        date={date}
-                        decreaseMonth={decreaseMonth}
-                        increaseMonth={increaseMonth}
-                        performanceDate={performanceDate}
-                    />
-                )}
-                selected={selectedDate}
-                includeDates={performanceDate.dates.map((date) =>
-                    toDate(date.date, { timeZone: "Asia/Seoul" })
-                )}
-                onChange={(date) => {
-                    handleSelectDate(date as Date);
-                }}
-                inline
-            />
-            {/* ) : (
-                 <div>날짜 정보가 없습니다.</div>
-             )} */}
-        </CalendarContainer>
+        <>
+            <CalendarContainer>
+                <ReactDatePicker
+                    locale={ko}
+                    weekDayClassName={(date) =>
+                        date.getDay() === 0 || date.getDay() === 6
+                            ? "react-datepicker__day--weekend"
+                            : null
+                    }
+                    renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => (
+                        <CalendarHeader
+                            date={date}
+                            decreaseMonth={decreaseMonth}
+                            increaseMonth={increaseMonth}
+                            performanceDate={performanceDate ? performanceDate : null}
+                        />
+                    )}
+                    selected={selectedDate}
+                    includeDates={
+                        performanceDate &&
+                        performanceDate.dates.map((date) =>
+                            toDate(date.date, { timeZone: "Asia/Seoul" })
+                        )
+                    }
+                    onChange={(date) => {
+                        handleSelectDate(date as Date);
+                    }}
+                    inline
+                />
+            </CalendarContainer>
+
+            {!performanceDate && <TestError />}
+        </>
     );
 }
 

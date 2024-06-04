@@ -14,13 +14,6 @@ interface HttpResponse<T extends object> {
     url: string;
 }
 
-interface ErrorResponse {
-    error: {
-        status: number;
-        message: string;
-    };
-}
-
 interface Interceptor {
     onRequest: (config: RequestInit) => CustomRequestInit;
     onResponse: <T extends object>(

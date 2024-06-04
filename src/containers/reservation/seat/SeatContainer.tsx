@@ -5,16 +5,16 @@ import SeatStageContainer from "./SeatStageContainer";
 import SeatingChart from "./SeatingChart";
 import SeatReservationPanel from "./SeatReservationPanel";
 import useSeatSelection from "@/hooks/useSeatSelection";
-import { Seats } from "@/interface";
+import { Result, Seats } from "@/interface";
 
-export default function SeatContainer({ seats }: { seats: Seats }) {
+export default function SeatContainer({ seats }: { seats: Result<Seats> }) {
     const { selectedSeats, selectedSeatsId, toggleSeatSelection, totalSelectedSeats } =
         useSeatSelection();
     return (
         <SeatContainerWrapper>
             <SeatStageContainer />
             <SeatingChart
-                seats={seats}
+                seats={seats.data}
                 selectedSeats={selectedSeats}
                 toggleSeatSelection={toggleSeatSelection}
             />
