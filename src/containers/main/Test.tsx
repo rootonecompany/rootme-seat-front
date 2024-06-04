@@ -3,6 +3,7 @@
 import { handleUseOrder } from "@/services/reservationAction";
 
 export default function Test() {
+    console.log(process.env.COLESLAW_API);
     return (
         <div>
             <button
