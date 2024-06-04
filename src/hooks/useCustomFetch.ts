@@ -1,7 +1,6 @@
 import { Result } from "@/interface";
 
 const coleslawUrl = process.env.NEXT_PUBLIC_COLESLAW_API;
-
 const tbridgeUrl = process.env.NEXT_PUBLIC_TBRIDGE_API;
 
 const defaultHeaders = {
