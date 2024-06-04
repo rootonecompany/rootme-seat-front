@@ -1,14 +1,8 @@
 import { Result } from "@/interface";
 
-const coleslawUrl =
-    process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_COLESLAW_API
-        : process.env.COLESLAW_API;
+const coleslawUrl = process.env.NEXT_PUBLIC_COLESLAW_API;
 
-const tbridgeUrl =
-    process.env.NODE_ENV === "development"
-        ? process.env.NEXT_PUBLIC_TBRIDGE_API
-        : process.env.TBRIDGE_API;
+const tbridgeUrl = process.env.NEXT_PUBLIC_TBRIDGE_API;
 
 const defaultHeaders = {
     "Content-Type": "application/json",

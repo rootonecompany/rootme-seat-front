@@ -3,7 +3,6 @@
 import { handleUseOrder } from "@/services/reservationAction";
 
 export default function Test() {
-    console.log(process.env.NEXT_PUBLIC_COLESLAW_API);
     return (
         <div>
             <button
