@@ -10,7 +10,7 @@ export default function Test() {
                     await handleUseOrder("O5C11A701F33");
                 }}
             >
-                사용 테스트!
+                사용 테스트
             </button>
             <button>취소 테스트</button>
         </div>
