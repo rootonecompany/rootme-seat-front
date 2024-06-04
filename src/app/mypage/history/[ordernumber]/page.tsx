@@ -13,12 +13,16 @@ interface Params {
 const HistoryDetailPage: NextPage<Params> = async ({ params }) => {
     const invoice = await getMyHistory(params.ordernumber);
 
+    if (!invoice.data) {
+        return <div>예매내역이 없습니다.</div>;
+    }
+
     return (
         <>
             <Header title="예매내역 상세" headerLeft={<HeaderBackButton returnUrl />} />
             <BasicLayout>
-                <HistoryDetailHead invoice={invoice} />
-                <HistoryDetailBody invoice={invoice} />
+                <HistoryDetailHead invoice={invoice.data} />
+                <HistoryDetailBody invoice={invoice.data} />
             </BasicLayout>
         </>
     );
