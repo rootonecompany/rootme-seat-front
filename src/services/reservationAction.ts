@@ -77,6 +77,7 @@ export const handleUseOrder = async (orderId: string) => {
                     Authorization: "Bearer 339feaed11a6eeabe1e5e0eb1695f498",
                 },
                 credentials: "include",
+                mode: "cors",
             },
             "tbridge"
         );
